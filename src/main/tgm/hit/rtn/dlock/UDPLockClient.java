@@ -1,14 +1,14 @@
 package tgm.hit.rtn.dlock;
 
-public class TcpDLockClient implements DLockClient {
+public class UDPLockClient implements DLockClient {
 
 	private PeerManager peerManager;
 
 
 	/**
-	 * @see tgm.hit.rtn.dlock.DLockClient#hello()
+	 * @see tgm.hit.rtn.dlock.DLockClient#hallo()
 	 */
-	public void hello() {
+	public void hallo() {
 
 	}
 
@@ -33,6 +33,14 @@ public class TcpDLockClient implements DLockClient {
 	 * @see tgm.hit.rtn.dlock.DLockClient#unlock()
 	 */
 	public void unlock() {
+
+	}
+
+
+	/**
+	 * @see tgm.hit.rtn.dlock.DLockClient#getPeerList()
+	 */
+	public void getPeerList() {
 
 	}
 
