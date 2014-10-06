@@ -1,9 +1,27 @@
 package tgm.hit.rtn.dlock;
 
 public class Peer {
+    private int port;
+    private String Host;
 
-	public abstract String getHost();
+    public Peer(int port, String host) {
+        this.port = port;
+        Host = host;
+    }
 
-	public abstract int getPort();
+    public String getHost() {
+        return Host;
+    }
 
+    public void setHost(String host) {
+        Host = host;
+    }
+
+    public int getPort() {
+        return port;
+    }
+
+    public void setPort(int port) {
+        this.port = port;
+    }
 }
