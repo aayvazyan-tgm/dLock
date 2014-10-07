@@ -1,4 +1,4 @@
-package tgm.hit.rtn.dlock.protocol;
+package tgm.hit.rtn.dlock.protocol.responses;
 
 public class Welcome extends Response {
 
