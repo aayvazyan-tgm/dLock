@@ -10,8 +10,8 @@ public class GsonPeerManager extends PeerManager {
 
 	}
 
-	public GsonPeerManager(File file) {
-
-	}
+	/*public GsonPeerManager(File file) {
+    //TODO ...
+	}*/
 
 }

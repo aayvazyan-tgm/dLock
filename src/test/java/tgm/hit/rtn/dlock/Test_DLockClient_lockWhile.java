@@ -14,7 +14,7 @@ public class Test_DLockClient_lockWhile {
     @Before
     public void prepare() {
         testObjects = new Object[]{"blub", 1};
-        lock = new DLock();
+        lock = new DLock(peerManager, dLockClient);
     }
 
     @Test

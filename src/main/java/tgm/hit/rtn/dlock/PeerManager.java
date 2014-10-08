@@ -2,9 +2,11 @@ package tgm.hit.rtn.dlock;
 
 public class PeerManager {
 
-	private TcpDLockServer tcpDLockServer;
+	private UDPDLockServer tcpDLockServer;
 
 	private Peer[] peer;
+
+	private DLockClient dLockClient;
 
 	public PeerManager() {
 
@@ -20,6 +22,10 @@ public class PeerManager {
 
 	public boolean removePeer(Peer peer) {
 		return false;
+	}
+
+	public void setClient(DLockClient client) {
+
 	}
 
 }
