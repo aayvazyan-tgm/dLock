@@ -9,6 +9,6 @@ public class PeerList extends Response implements Serializable{
 
 	public String msg = "PEER_LIST";
 
-	public List<Peer> peers;
+	public Peer[] peers;
 
 }
