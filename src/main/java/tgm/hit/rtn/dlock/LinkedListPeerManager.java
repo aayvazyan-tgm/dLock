@@ -1,9 +1,5 @@
 package tgm.hit.rtn.dlock;
 
-import tgm.hit.rtn.dlock.DLockClient;
-import tgm.hit.rtn.dlock.Peer;
-import tgm.hit.rtn.dlock.PeerManager;
-
 import java.util.ArrayList;
 
 /**
@@ -25,6 +21,9 @@ public class LinkedListPeerManager implements PeerManager{
 
     @Override
     public boolean removePeer(Peer peer) {
+        for (Peer storedPeer:peers) {
+            if(peer.equals(storedPeer))this.peers.remove(storedPeer);
+        }
         return this.peers.remove(peer);
     }
 
