@@ -2,7 +2,9 @@ package tgm.hit.rtn.dlock.protocol;
 
 import tgm.hit.rtn.dlock.Peer;
 
-public class Package {
+import java.io.Serializable;
+
+public class Package  implements Serializable {
 
 	public PackageType type;
 

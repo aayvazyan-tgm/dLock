@@ -1,6 +1,8 @@
 package tgm.hit.rtn.dlock.protocol.requests;
 
-public class Hallo extends Request {
+import java.io.Serializable;
+
+public class Hallo extends Request implements Serializable{
 
 	public String msg = "HALLO";
 

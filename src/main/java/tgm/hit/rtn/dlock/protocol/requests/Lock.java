@@ -1,6 +1,8 @@
 package tgm.hit.rtn.dlock.protocol.requests;
 
-public class Lock extends Request {
+import java.io.Serializable;
+
+public class Lock extends Request implements Serializable{
 
 	public String msg = "LOCK";
 
