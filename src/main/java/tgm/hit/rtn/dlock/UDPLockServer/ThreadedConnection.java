@@ -2,8 +2,7 @@ package tgm.hit.rtn.dlock.UDPLockServer;
 
 import tgm.hit.rtn.dlock.Peer;
 import tgm.hit.rtn.dlock.PeerManager;
-import tgm.hit.rtn.dlock.RequestHandlers.ByeRequestHandler;
-import tgm.hit.rtn.dlock.RequestHandlers.RequestListener;
+import tgm.hit.rtn.dlock.RequestHandlers.*;
 import tgm.hit.rtn.dlock.protocol.requests.*;
 import tgm.hit.rtn.dlock.protocol.responses.Response;
 
@@ -28,8 +27,15 @@ public class ThreadedConnection extends Thread {
     public ThreadedConnection(Socket sc)//allows multiple connections
     {
         this.connection = sc;
-        addRequestHandler(ByeRequestHandler.INSTANCE);
+        initializeRequestHandlers();
+    }
 
+    private void initializeRequestHandlers() {
+        addRequestHandler(ByeRequestHandler.INSTANCE);
+        addRequestHandler(GetPeerListRequestHandler.INSTANCE);
+        addRequestHandler(HalloRequestHandler.INSTANCE);
+        addRequestHandler(LockRequestHandler.INSTANCE);
+        addRequestHandler(UnlockRequestHandler.INSTANCE);
     }
 
     public void run() {
