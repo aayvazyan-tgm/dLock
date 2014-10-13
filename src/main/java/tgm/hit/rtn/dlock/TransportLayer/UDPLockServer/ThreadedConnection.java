@@ -1,8 +1,9 @@
-package tgm.hit.rtn.dlock.UDPLockServer;
+package tgm.hit.rtn.dlock.TransportLayer.UDPLockServer;
 
 import tgm.hit.rtn.dlock.Peer;
 import tgm.hit.rtn.dlock.PeerManager;
 import tgm.hit.rtn.dlock.RequestHandlers.*;
+import tgm.hit.rtn.dlock.TransportLayer.RTNConnection;
 import tgm.hit.rtn.dlock.protocol.requests.*;
 import tgm.hit.rtn.dlock.protocol.responses.Response;
 
@@ -15,7 +16,7 @@ import java.util.LinkedList;
  * @version 9.11.2012
  */
 //TODO This class needs a cleanup
-public class ThreadedConnection extends Thread {
+public class ThreadedConnection extends Thread implements RTNConnection{
 
     private ObjectInputStream in;
     private Socket connection;

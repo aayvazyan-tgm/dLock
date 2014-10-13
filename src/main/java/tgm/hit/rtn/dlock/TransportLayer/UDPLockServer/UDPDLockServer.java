@@ -1,4 +1,4 @@
-package tgm.hit.rtn.dlock.UDPLockServer;
+package tgm.hit.rtn.dlock.TransportLayer.UDPLockServer;
 
 import tgm.hit.rtn.dlock.*;
 
