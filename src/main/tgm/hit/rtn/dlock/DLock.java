@@ -40,6 +40,10 @@ public class DLock implements GotLock {
 		return lockRequest();
 	}
 
+    private boolean lockRequest() {
+        return false;
+    }
+
     /**
      *
      * @param time
@@ -63,10 +67,5 @@ public class DLock implements GotLock {
 	 */
 	public void gotLock() {
 
-	}
-
-    private boolean lockRequest() {
-
-        return false;
     }
 }
