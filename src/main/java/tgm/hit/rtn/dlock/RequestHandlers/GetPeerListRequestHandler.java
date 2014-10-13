@@ -1,9 +1,7 @@
 package tgm.hit.rtn.dlock.RequestHandlers;
 
-import tgm.hit.rtn.dlock.Peer;
-import tgm.hit.rtn.dlock.PeerManager;
-import tgm.hit.rtn.dlock.UDPLockServer.ThreadedConnection;
-import tgm.hit.rtn.dlock.protocol.requests.Bye;
+import tgm.hit.rtn.dlock.TransportLayer.RTNConnection;
+import tgm.hit.rtn.dlock.TransportLayer.UDPLockServer.ThreadedConnection;
 import tgm.hit.rtn.dlock.protocol.requests.GetPeerList;
 import tgm.hit.rtn.dlock.protocol.requests.Request;
 import tgm.hit.rtn.dlock.protocol.responses.PeerList;
@@ -13,10 +11,11 @@ import tgm.hit.rtn.dlock.protocol.responses.PeerList;
  * @version 13.10.2014
  */
 public class GetPeerListRequestHandler implements RequestListener {
+    /* contains a instance of this class */
     public final static GetPeerListRequestHandler INSTANCE = new GetPeerListRequestHandler();
     private GetPeerListRequestHandler(){};
     @Override
-    public void handleRequest(Request request, ThreadedConnection threadedConnection) {
+    public void handleRequest(Request request, RTNConnection threadedConnection) {
         if(request instanceof GetPeerList){
             GetPeerList byeReq=(GetPeerList)request;
             PeerList response=new PeerList();
