@@ -46,7 +46,7 @@ public class DLock implements GotLock {
      * If the lock is not available then the current thread becomes disabled for thread scheduling purposes and lies dormant until the lock has been acquired.
      */
     public void lock() throws InterruptedException {
-        while (!lockRequest()) {
+        while (!tryLock()) {
             Thread.sleep(Settings.RETRY_TIME_NANO);
         }
     }
@@ -59,12 +59,9 @@ public class DLock implements GotLock {
      * @return Tries to Acquires the lock if it is available and returns immediately with the value true.
      */
     public boolean tryLock() {
-        return lockRequest();
-    }
-
-    private boolean lockRequest() {
         return false;
     }
+
 
     /**
      * Acquires the lock if it is free within the given waiting time and the current thread has not been interrupted.
