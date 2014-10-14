@@ -4,7 +4,10 @@ apply plugin: 'java'
 apply plugin: "jacoco"
 
 sourceCompatibility = 1.6
-version = '1.0'
+
+ext.revision = 'git rev-list --count HEAD'.execute().text.trim()
+ext.hash = 'git rev-parse --short HEAD'.execute().text.trim()
+version = "r${revision}.${hash}"
 
 repositories {
     mavenCentral()
