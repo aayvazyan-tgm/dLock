@@ -11,6 +11,7 @@ import java.util.LinkedList;
 
 /**
  * @author Ari Michael Ayvazyan
+ * @author Jakob Klepp
  * @version 9.11.2012
  */
 //TODO this class needs a cleanup

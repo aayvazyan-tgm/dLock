@@ -99,7 +99,7 @@ public class ThreadedConnection extends Thread implements RTNConnection{
 
     /**
      * Adds a RequestListener to listen for Requests.
-     * @param rq
+     * @param rq New request listener.
      */
     public void addRequestHandler(RequestListener rq){
         if(requestListener == null) requestListener = new LinkedList<RequestListener>();
@@ -107,7 +107,7 @@ public class ThreadedConnection extends Thread implements RTNConnection{
     }
     /**
      * Handles the requests
-     * @param req
+     * @param req Request to be handled.
      */
     private void handleRequest(Request req) {
         for(RequestListener handler:this.requestListener){

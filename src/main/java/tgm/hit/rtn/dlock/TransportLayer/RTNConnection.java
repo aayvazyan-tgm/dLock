@@ -2,13 +2,14 @@ package tgm.hit.rtn.dlock.TransportLayer;
 
 import tgm.hit.rtn.dlock.Peer;
 import tgm.hit.rtn.dlock.PeerManager;
-import tgm.hit.rtn.dlock.protocol.responses.PeerList;
 import tgm.hit.rtn.dlock.protocol.responses.Response;
 
 /**
- * @author Ari
- * @version 13.10.2014
  * This class defines the resources, that are required by the RequestHandlers.
+ *
+ * @author Ari
+ * @author Jakob Klepp
+ * @version 13.10.2014
  */
 public interface RTNConnection {
 
@@ -27,8 +28,9 @@ public interface RTNConnection {
     Peer getPartner();
 
     /**
-     *  sends a Response to the current partner.
-     * @param response
+     * Sends a Response to the current partner.
+     *
+     * @param response Response to be send.
      */
     void answer(Response response);
 }
