@@ -17,7 +17,7 @@ public class DLock implements GotLock {
      */
     public DLock(){
         this.peerManager=new LinkedListPeerManager();
-        this.dLockClient=new UDPLockClient();
+        this.dLockClient=new UDPMulticastLockClient();
     }
     public DLock(PeerManager peerManager, DLockClient dLockClient) {
         this.peerManager = peerManager;
@@ -100,7 +100,8 @@ public class DLock implements GotLock {
     /**
      * @see tgm.hit.rtn.dlock.GotLock#gotLock()
      */
-    public void gotLock() {
+    public boolean gotLock() {
         //TODO RETURN the current lock staus
+        return false;
     }
 }

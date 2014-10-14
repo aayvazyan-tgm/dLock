@@ -12,18 +12,38 @@ public class Peer implements Serializable{
         this.host = host;
     }
 
+    /**
+     * Getter for property 'host'.
+     *
+     * @return Value for property 'host'.
+     */
     public String getHost() {
         return host;
     }
 
+    /**
+     * Setter for property 'host'.
+     *
+     * @param host Value to set for property 'host'.
+     */
     public void setHost(String host) {
         host = host;
     }
 
+    /**
+     * Getter for property 'port'.
+     *
+     * @return Value for property 'port'.
+     */
     public int getPort() {
         return port;
     }
 
+    /**
+     * Setter for property 'port'.
+     *
+     * @param port Value to set for property 'port'.
+     */
     public void setPort(int port) {
         this.port = port;
     }
@@ -43,6 +63,7 @@ public class Peer implements Serializable{
         return false;
     }
 
+    /** Generates a hash code, using the port and host*/
     @Override
     public int hashCode() {
         return Objects.hash(this.port,this.host);

@@ -12,6 +12,7 @@ import tgm.hit.rtn.dlock.protocol.requests.Request;
 public class ByeRequestHandler implements RequestListener {
     /* contains a instance of this class */
     public final static ByeRequestHandler INSTANCE = new ByeRequestHandler();
+    /** This class should not be instanced manually. */
     private ByeRequestHandler(){};
     @Override
     public void handleRequest(Request request, RTNConnection threadedConnection) {

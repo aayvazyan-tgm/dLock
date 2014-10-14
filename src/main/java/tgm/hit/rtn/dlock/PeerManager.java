@@ -21,7 +21,7 @@ public interface PeerManager {
 	public boolean removePeer(Peer peer);
 
     /**
-     * sets the DLockClient
+     * sets the DLockClient that communicates with the Peers
      * @param client the client to set
      */
 	public void setClient(DLockClient client);

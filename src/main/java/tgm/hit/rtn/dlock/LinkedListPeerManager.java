@@ -29,6 +29,6 @@ public class LinkedListPeerManager implements PeerManager{
 
     @Override
     public void setClient(DLockClient client) {
-
+        //Do we really need this?
     }
 }

@@ -1,6 +1,11 @@
 package tgm.hit.rtn.dlock;
 
-public class UDPLockClient implements DLockClient {
+//TODO some work needs to be done here
+
+/**
+ * This client communicates with other Peers in the network
+ */
+public class UDPMulticastLockClient implements DLockClient {
 
 	private PeerManager peerManager;
 
