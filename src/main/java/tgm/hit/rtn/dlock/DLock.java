@@ -102,7 +102,7 @@ public class DLock implements GotLock {
      * The specified waiting time elapses
      * </p><p>
      * If the lock is acquired then the value true is returned.
-     * </p>
+     * </p><p>
      * If the specified waiting time elapses then the value false is returned.
      * If the time is less than or equal to zero, the method will not wait at
      * all.
