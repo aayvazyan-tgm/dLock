@@ -11,13 +11,14 @@ A Maven repo may be available soon.
 #Usage:
 To get detailed information about the possibilities of dLock, take a look at the JavaDoc of the Class `DLock`
 
-##Simple Lock Example
-
+##Simple Lock Example 1
+example.java
 ```java
 public class example {
     public void testObjectsPassed() throws InterruptedException {
         Integer[] sumThis = new Integer[]{1, 1, 2};
         DLock lock = new DLock();
+        //Here we wait until dLock is able to aquire a Lock and then keep the lock until Sum finished its run() call
         Integer result=(Integer) lock.lockWhile(new Sum(), sumThis);
     }
 }
@@ -31,6 +32,19 @@ class Sum implements tgm.hit.rtn.dlock.Callback<Integer,Integer>{
             sum+=params[i].intValue();
         }
         return sum;
+    }
+}
+```
+
+##Simple Lock Example 2
+example.java
+```java
+public class example {
+    public void testObjectsPassed() throws InterruptedException {
+        DLock lock = new DLock();
+        lock.lock();
+        foo();
+        lock.unlock();
     }
 }
 ```
