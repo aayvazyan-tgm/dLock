@@ -59,6 +59,7 @@ public class DLock implements GotLock {
      * @return Tries to Acquires the lock if it is available and returns immediately with the value true.
      */
     public boolean tryLock() {
+        //TODO IMPLEMENT
         return false;
     }
 
@@ -82,8 +83,9 @@ public class DLock implements GotLock {
      * @throws InterruptedException if the current thread is interrupted while acquiring the lock (and interruption of lock acquisition is supported)
      */
     public boolean tryLock(long time, TimeUnit unit) throws InterruptedException {
+        //TODO a thread would come handy
+        //Thread.sleep(unit.toMillis(time));
         dLockClient.lock();
-        Thread.sleep(unit.toMillis(time));
         return false;
     }
 
@@ -99,6 +101,6 @@ public class DLock implements GotLock {
      * @see tgm.hit.rtn.dlock.GotLock#gotLock()
      */
     public void gotLock() {
-
+        //TODO RETURN the current lock staus
     }
 }
