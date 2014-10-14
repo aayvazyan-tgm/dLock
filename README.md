@@ -4,7 +4,7 @@ http://aayvazyan.bitnamiapp.com/jenkins/
 dLock is a peer to peer distributed lock manager.
 
 #Contribution
-Feel free to fork this repo and send pull requests.
+Feel free to send pull requests and fork this repo.
 
 #Installation:
 Simply add the .jar as a library.
