@@ -20,14 +20,9 @@ public class Test_DLockClient_lockWhile {
     }
 
     @Test
-    public void testObjectsPassed() {
-        int myResult=0;
-        try {
-            Integer result=(Integer) lock.lockWhile(new Sum(), sumThis);
-            myResult=result.intValue();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+    public void testObjectsPassed() throws InterruptedException {
+        Integer result=(Integer) lock.lockWhile(new Sum(), sumThis);
+        int myResult=result.intValue();
         Assert.assertEquals(myResult,expectedResult);
     }
 
