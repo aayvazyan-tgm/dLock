@@ -11,6 +11,14 @@ public class DLock implements GotLock {
 
     private DLockClient dLockClient;
 
+    /**
+     * Creates a DLock using a default configuration.
+     * 
+     */
+    public DLock(){
+        this.peerManager=new LinkedListPeerManager();
+        this.dLockClient=new UDPLockClient();
+    }
     public DLock(PeerManager peerManager, DLockClient dLockClient) {
         this.peerManager = peerManager;
         this.dLockClient = dLockClient;
@@ -18,16 +26,19 @@ public class DLock implements GotLock {
     }
 
     /**
-     * Locks while the call is being executed. (blocking)
-     * Waits until The System is not locked.
+     *  Locks while the call is being executed. (blocking)
+     *  Waits until The System is not locked.
      *
-     * @param call
-     * @param params
+     *  @param call the call to be executed while locked
+     *  @param params the params for the call
+     *  @return returns the return value of call
+     *  @throws java.lang.InterruptedException if the thread was interrupted while waiting for a lock
      */
-    public void lockWhile(Callback call, Object... params) {
-        lockRequest();
-        call.run(params);
+    public Object lockWhile(Callback call, Object... params) throws InterruptedException {
+        lock();
+        Object returnVal=call.run(params);
         unlock();
+        return returnVal;
     }
 
     /**
