@@ -1,6 +1,8 @@
 package tgm.hit.rtn.dlock.protocol.requests;
 
-public class Unlock extends Request {
+import java.io.Serializable;
+
+public class Unlock extends Request implements Serializable {
 
 	public String msg = "UNLOCK";
 

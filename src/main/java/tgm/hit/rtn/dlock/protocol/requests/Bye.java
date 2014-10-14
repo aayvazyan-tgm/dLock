@@ -1,6 +1,8 @@
 package tgm.hit.rtn.dlock.protocol.requests;
 
-public class Bye extends Request {
+import java.io.Serializable;
+
+public class Bye extends Request implements Serializable{
 
 	public String msg = "BYE";
 

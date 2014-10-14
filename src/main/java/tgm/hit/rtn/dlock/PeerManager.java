@@ -1,31 +1,29 @@
 package tgm.hit.rtn.dlock;
 
-public class PeerManager {
+public interface PeerManager {
+    /**
+     * Adds a Peer to the Peer manager
+     * @param peer the Peer to add
+     */
+	public void addPeer(Peer peer);
 
-	private UDPDLockServer tcpDLockServer;
+    /**
+     * gets all stored Peers
+     * @return all stored Peers
+     */
+	public Peer[] getPeers();
 
-	private Peer[] peer;
+    /**
+     * removes a Peer by its Object
+     * @param peer the peer to remove
+     * @return true if removed, false otherwise
+     */
+	public boolean removePeer(Peer peer);
 
-	private DLockClient dLockClient;
-
-	public PeerManager() {
-
-	}
-
-	public void addPeer(Peer peer) {
-
-	}
-
-	public Peer getPeers() {
-		return null;
-	}
-
-	public boolean removePeer(Peer peer) {
-		return false;
-	}
-
-	public void setClient(DLockClient client) {
-
-	}
+    /**
+     * sets the DLockClient that communicates with the Peers
+     * @param client the client to set
+     */
+	public void setClient(DLockClient client);
 
 }
