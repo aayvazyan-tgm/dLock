@@ -3,13 +3,16 @@ http://aayvazyan.bitnamiapp.com/jenkins/
 
 dLock is a peer to peer distributed lock manager.
 
+#Contribution
+Feel free to fork this repo and send pull requests.
+
 #Installation:
 Simply add the .jar as a library.
 
 A Maven repo may be available soon. 
 
 #Usage:
-To get detailed information about the possibilities of dLock, take a look at the JavaDoc of the Class `DLock`
+To get detailed information about the possibilities of dLock, take a look at the JavaDoc of the `DLock` class
 
 ##Simple Lock Example 1
 example.java
