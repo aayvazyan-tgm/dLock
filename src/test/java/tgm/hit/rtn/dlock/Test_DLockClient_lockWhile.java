@@ -8,22 +8,40 @@ import org.junit.Test;
  *
  */
 public class Test_DLockClient_lockWhile {
-    Object[] testObjects;
+    Integer[] sumThis;
+    int expectedResult;
     DLock lock;
 
     @Before
     public void prepare() {
-        testObjects = new Object[]{"blub", 1};
-        lock = new DLock(peerManager, dLockClient);
+        sumThis = new Integer[]{1, 1, 2};
+        expectedResult=4;
+        lock = new DLock();
     }
 
     @Test
     public void testObjectsPassed() {
-        lock.lockWhile(new Callback() {
-            @Override
-            public void run(Object... params) {
-                Assert.assertArrayEquals(params, testObjects);
-            }
-        }, testObjects);
+        int myResult=0;
+        try {
+            Integer result=(Integer) lock.lockWhile(new Sum(), sumThis);
+            myResult=result.intValue();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        Assert.assertEquals(myResult,expectedResult);
+    }
+
+}
+class Sum implements Callback<Integer,Integer>{
+
+    @Override
+    public Integer run(Integer... params) {
+        if(params==null)return 0;
+        if(params.length==0)return 0;
+        int sum=0;
+        for (int i = 0; i < params.length; i++) {
+            sum+=params[i].intValue();
+        }
+        return sum;
     }
 }
