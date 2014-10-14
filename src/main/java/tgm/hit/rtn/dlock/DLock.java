@@ -11,18 +11,29 @@ public class DLock implements GotLock {
 
     private DLockClient dLockClient;
 
+    private GotLock gotLock;
+
     /**
      * Creates a DLock using a default configuration.
      * 
      */
     public DLock(){
-        this.peerManager=new LinkedListPeerManager();
-        this.dLockClient=new UDPMulticastLockClient();
+        this(new LinkedListPeerManager(),
+                new UDPMulticastLockClient(),
+                null /*TODO*/);
     }
-    public DLock(PeerManager peerManager, DLockClient dLockClient) {
+
+    /**
+     * Dependency injection constructor
+     *
+     * @param peerManager Object responsible for managing the peers.
+     * @param dLockClient Send network requests with this object.
+     * @param gotLock Where the lock can ask if it should lock.
+     */
+    public DLock(PeerManager peerManager, DLockClient dLockClient, GotLock gotLock) {
         this.peerManager = peerManager;
         this.dLockClient = dLockClient;
-
+        this.gotLock = gotLock;
     }
 
     /**
@@ -36,7 +47,7 @@ public class DLock implements GotLock {
      */
     public Object lockWhile(Callback call, Object... params) throws InterruptedException {
         lock();
-        Object returnVal=call.run(params);
+        Object returnVal = call.run(params);
         unlock();
         return returnVal;
     }
@@ -59,8 +70,7 @@ public class DLock implements GotLock {
      * @return Tries to Acquires the lock if it is available and returns immediately with the value true.
      */
     public boolean tryLock() {
-        //TODO IMPLEMENT
-        return false;
+        return gotLock.gotLock();
     }
 
 
@@ -101,7 +111,6 @@ public class DLock implements GotLock {
      * @see tgm.hit.rtn.dlock.GotLock#gotLock()
      */
     public boolean gotLock() {
-        //TODO RETURN the current lock staus
-        return false;
+        return tryLock();
     }
 }
