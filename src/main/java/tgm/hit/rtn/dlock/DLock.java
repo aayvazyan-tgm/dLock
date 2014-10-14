@@ -82,7 +82,8 @@ public class DLock implements GotLock {
      * immediately with the value true.
      */
     public boolean tryLock() {
-        return gotLock.gotLock();
+        // TODO lock
+        return gotLock();
     }
 
 
@@ -134,6 +135,6 @@ public class DLock implements GotLock {
      * @see tgm.hit.rtn.dlock.GotLock#gotLock()
      */
     public boolean gotLock() {
-        return tryLock();
+        return gotLock.gotLock();
     }
 }
