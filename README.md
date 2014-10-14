@@ -54,4 +54,5 @@ class Sum implements tgm.hit.rtn.dlock.Callback<Integer,Integer>{
 Feel free to send pull requests and fork this repo.
 
 ##Design idea
+Please note that this diagram does currently not represent the current state of this program.
 ![alt text](docs/Class_Diagram.png "Logo Title Text 1")
