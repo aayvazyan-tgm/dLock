@@ -16,6 +16,19 @@ example.java
 ```java
 public class example {
     public void testObjectsPassed() throws InterruptedException {
+        DLock lock = new DLock();
+        lock.lock();
+        foo();
+        lock.unlock();
+    }
+}
+```
+
+##Lock Example 2
+example.java
+```java
+public class example {
+    public void testObjectsPassed() throws InterruptedException {
         Integer[] sumThis = new Integer[]{1, 1, 2};
         DLock lock = new DLock();
         //Here we wait until dLock is able to aquire a Lock and then keep the lock until Sum finished its run() call
@@ -32,19 +45,6 @@ class Sum implements tgm.hit.rtn.dlock.Callback<Integer,Integer>{
             sum+=params[i].intValue();
         }
         return sum;
-    }
-}
-```
-
-##Simple Lock Example 2
-example.java
-```java
-public class example {
-    public void testObjectsPassed() throws InterruptedException {
-        DLock lock = new DLock();
-        lock.lock();
-        foo();
-        lock.unlock();
     }
 }
 ```
