@@ -1,6 +1,7 @@
 package tgm.hit.rtn.dlock;
 
-import tgm.hit.rtn.dlock.*;
+import tgm.hit.rtn.dlock.TransportLayer.DLockClient;
+import tgm.hit.rtn.dlock.TransportLayer.UDPMulticastLockClient;
 
 import java.util.Random;
 import java.util.concurrent.TimeUnit;

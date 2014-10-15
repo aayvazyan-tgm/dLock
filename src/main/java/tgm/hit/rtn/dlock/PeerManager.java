@@ -1,5 +1,7 @@
 package tgm.hit.rtn.dlock;
 
+import tgm.hit.rtn.dlock.TransportLayer.DLockClient;
+
 public interface PeerManager {
     /**
      * Adds a Peer to the Peer manager

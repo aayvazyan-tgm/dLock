@@ -1,5 +1,7 @@
 package tgm.hit.rtn.dlock;
 
+import tgm.hit.rtn.dlock.TransportLayer.DLockClient;
+
 import java.util.ArrayList;
 
 /**

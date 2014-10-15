@@ -1,6 +1,8 @@
-package tgm.hit.rtn.dlock;
+package tgm.hit.rtn.dlock.TransportLayer;
 
 //TODO some work needs to be done here
+
+import tgm.hit.rtn.dlock.PeerManager;
 
 /**
  * This client communicates with other Peers in the network
@@ -11,7 +13,7 @@ public class UDPMulticastLockClient implements DLockClient {
 
 
 	/**
-	 * @see tgm.hit.rtn.dlock.DLockClient#hallo()
+	 * @see DLockClient#hallo()
 	 */
 	public void hallo() {
 
@@ -19,7 +21,7 @@ public class UDPMulticastLockClient implements DLockClient {
 
 
 	/**
-	 * @see tgm.hit.rtn.dlock.DLockClient#bye()
+	 * @see DLockClient#bye()
 	 */
 	public void bye() {
 
@@ -27,7 +29,7 @@ public class UDPMulticastLockClient implements DLockClient {
 
 
 	/**
-	 * @see tgm.hit.rtn.dlock.DLockClient#lock()
+	 * @see DLockClient#lock()
 	 */
 	public void lock() {
 
@@ -35,7 +37,7 @@ public class UDPMulticastLockClient implements DLockClient {
 
 
 	/**
-	 * @see tgm.hit.rtn.dlock.DLockClient#unlock()
+	 * @see DLockClient#unlock()
 	 */
 	public void unlock() {
 
@@ -43,7 +45,7 @@ public class UDPMulticastLockClient implements DLockClient {
 
 
 	/**
-	 * @see tgm.hit.rtn.dlock.DLockClient#getPeerList()
+	 * @see DLockClient#getPeerList()
 	 */
 	public void getPeerList() {
 
