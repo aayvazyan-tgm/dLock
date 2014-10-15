@@ -1,5 +1,7 @@
 package tgm.hit.rtn.dlock;
 
+import tgm.hit.rtn.dlock.*;
+
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 /**
@@ -16,7 +18,7 @@ public class DLock implements GotLock {
     private boolean isLocked=false;
 
     /**
-     * Creates a DLock using a default configuration.
+     * Creates a dLock using a default configuration.
      * 
      */
     public DLock(){
@@ -82,7 +84,9 @@ public class DLock implements GotLock {
     public boolean tryLock() {
         beforeTryToLock();
         boolean acquiredLock=false;
+
         // TODO send a lock request
+        
         afterTryToLock(acquiredLock);
         return acquiredLock;
     }
@@ -118,21 +122,24 @@ public class DLock implements GotLock {
      * acquiring the lock (and interruption of lock acquisition is supported)
      */
     public boolean tryLock(long time, TimeUnit unit) throws InterruptedException {
-        //TODO a thread would come handy
+        long sleepUntil = System.currentTimeMillis() + unit.toMillis(time);
+        final boolean[] success = {false};
         Thread tryLockThread=new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
                     lock();
+                    success[0]=true;
                 } catch (InterruptedException e) {
-                    //This exception is expected if the time runns out
+                    /* This exception is expected if the time runs out */
                 }
             }
         });
-
-        //Thread.sleep(unit.toMillis(time));
-
-        return false;
+        while(success[0] == false && System.currentTimeMillis() < sleepUntil){
+            Thread.sleep(100);
+        }
+        if(tryLockThread.isAlive())tryLockThread.interrupt();
+        return success[0];
     }
 
     /**
