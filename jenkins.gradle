@@ -1,0 +1,37 @@
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'java'
+apply plugin: 'jacoco'
+apply plugin: 'maven'
+
+sourceCompatibility = 1.6
+
+ext.revision = 'git rev-list --count HEAD'.execute().text.trim()
+ext.hash = 'git rev-parse --short HEAD'.execute().text.trim()
+version = "r${revision}.${hash}"
+
+group = 'tgm.hit.rtn'
+name ='dLock'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'com.google.code.gson:gson:2.3'
+    testCompile 'junit:junit:4.11'
+    testCompile 'org.mockito:mockito-core:1.9.5'
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: "${nexusUrl}/content/repositories/releases") {
+                authentication(userName: nexusUsername, password: nexusPassword)
+            }
+            snapshotRepository(url: "${System.getProperty('nexusUrl')}/content/repositories/snapshots") {
+                authentication(userName: nexusUsername, password: nexusPassword)
+            }
+        }
+    }
+}
