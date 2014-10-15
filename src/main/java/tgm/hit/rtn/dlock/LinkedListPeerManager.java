@@ -11,6 +11,10 @@ import java.util.ArrayList;
 public class LinkedListPeerManager implements PeerManager{
     private ArrayList<Peer> peers;
 
+    public LinkedListPeerManager(){
+        this.peers=new ArrayList<Peer>();
+    }
+
     @Override
     public void addPeer(Peer peer) {
         this.peers.add(peer);
