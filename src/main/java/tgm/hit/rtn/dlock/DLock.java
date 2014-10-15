@@ -1,5 +1,8 @@
 package tgm.hit.rtn.dlock;
 
+import tgm.hit.rtn.dlock.*;
+
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 /**
  * @author Ari Michael Ayvazyan
@@ -12,16 +15,15 @@ public class DLock implements GotLock {
 
     private DLockClient dLockClient;
 
-    private GotLock gotLock;
+    private boolean isLocked=false;
 
     /**
-     * Creates a DLock using a default configuration.
+     * Creates a dLock using a default configuration.
      * 
      */
     public DLock(){
         this(new LinkedListPeerManager(),
-                new UDPMulticastLockClient(),
-                null /*TODO*/);
+                new UDPMulticastLockClient());
     }
 
     /**
@@ -29,12 +31,10 @@ public class DLock implements GotLock {
      *
      * @param peerManager Object responsible for managing the peers.
      * @param dLockClient Send network requests with this object.
-     * @param gotLock Where the lock can ask if it should lock.
      */
-    public DLock(PeerManager peerManager, DLockClient dLockClient, GotLock gotLock) {
+    public DLock(PeerManager peerManager, DLockClient dLockClient) {
         this.peerManager = peerManager;
         this.dLockClient = dLockClient;
-        this.gotLock = gotLock;
     }
 
     /**
@@ -65,7 +65,7 @@ public class DLock implements GotLock {
      */
     public void lock() throws InterruptedException {
         while (!tryLock()) {
-            Thread.sleep(Settings.RETRY_TIME_NANO);
+            Thread.sleep(Settings.RETRY_TIME_NANO+ new Random().nextInt(Settings.VARIANCE));
         }
     }
 
@@ -82,8 +82,13 @@ public class DLock implements GotLock {
      * immediately with the value true.
      */
     public boolean tryLock() {
-        // TODO lock
-        return gotLock();
+        beforeTryToLock();
+        boolean acquiredLock=false;
+
+        // TODO send a lock request
+        
+        afterTryToLock(acquiredLock);
+        return acquiredLock;
     }
 
 
@@ -117,16 +122,31 @@ public class DLock implements GotLock {
      * acquiring the lock (and interruption of lock acquisition is supported)
      */
     public boolean tryLock(long time, TimeUnit unit) throws InterruptedException {
-        //TODO a thread would come handy
-        //Thread.sleep(unit.toMillis(time));
-        dLockClient.lock();
-        return false;
+        long sleepUntil = System.currentTimeMillis() + unit.toMillis(time);
+        final boolean[] success = {false};
+        Thread tryLockThread=new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    lock();
+                    success[0]=true;
+                } catch (InterruptedException e) {
+                    /* This exception is expected if the time runs out */
+                }
+            }
+        });
+        while(success[0] == false && System.currentTimeMillis() < sleepUntil){
+            Thread.sleep(100);
+        }
+        if(tryLockThread.isAlive())tryLockThread.interrupt();
+        return success[0];
     }
 
     /**
      * Releases the lock.
      */
     public void unlock() {
+        setLockStatus(false);
         dLockClient.unlock();
     }
 
@@ -135,6 +155,32 @@ public class DLock implements GotLock {
      * @see tgm.hit.rtn.dlock.GotLock#gotLock()
      */
     public boolean gotLock() {
-        return gotLock.gotLock();
+        return isLocked;
     }
+
+    /**
+     * Sets the lock status that should be represented to the outside.
+     * @param locked
+     */
+    private void setLockStatus(boolean locked) {
+        this.isLocked=locked;
+    }
+
+    /**
+     * Should be called before acquiring a lock
+     */
+    private void beforeTryToLock(){
+        //We want to set our lock status to true BEFORE we have acquired a lock,
+        //so if a other client sends a request while we try to acquire a lock he shall not receive the lock
+        setLockStatus(true);
+    }
+
+    /**
+     * should be called after trying to acquire a lock
+     * @param acquiredLock true if a lock was acquired, false otherwise
+     */
+    private void afterTryToLock(boolean acquiredLock) {
+        setLockStatus(acquiredLock);
+    }
+
 }
