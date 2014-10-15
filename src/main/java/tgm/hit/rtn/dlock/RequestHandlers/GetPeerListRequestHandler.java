@@ -18,7 +18,7 @@ public class GetPeerListRequestHandler implements RequestListener {
     @Override
     public void handleRequest(Request request, RTNConnection threadedConnection) {
         if(request instanceof GetPeerList){
-            GetPeerList byeReq=(GetPeerList)request;
+            GetPeerList peerReq=(GetPeerList)request;
             PeerList response=new PeerList();
             response.peers= threadedConnection.getPeerManager().getPeers();
             threadedConnection.answer(response);
