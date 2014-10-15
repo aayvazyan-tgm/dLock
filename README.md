@@ -1,5 +1,4 @@
-Builds will be available at:
-http://aayvazyan.bitnamiapp.com/jenkins/
+# dLock [![Build Status](http://ci.truh.in/buildStatus/icon?job=dLock)](http://ci.truh.in/job/dLock/)
 
 dLock is a peer to peer distributed lock manager.
 
