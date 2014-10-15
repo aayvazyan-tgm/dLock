@@ -11,6 +11,7 @@ ext.hash = 'git rev-parse --short HEAD'.execute().text.trim()
 version = "r${revision}.${hash}"
 
 group = 'tgm.hit.rtn'
+name ='dLock'
 
 repositories {
     mavenCentral()
