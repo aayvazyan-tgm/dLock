@@ -1,8 +1,7 @@
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'java'
-apply plugin: "jacoco"
-apply plugin: "maven-publish"
+apply plugin: 'jacoco'
 
 sourceCompatibility = 1.6
 
@@ -20,19 +19,4 @@ dependencies {
     compile 'com.google.code.gson:gson:2.3'
     testCompile 'junit:junit:4.11'
     testCompile 'org.mockito:mockito-core:1.9.5'
-}
-
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            groupId(group)
-            from components.java
-        }
-    }
-    repositories {
-        maven {
-            // change to point to your repo, e.g. http://my.org/repo
-            url "$buildDir/repo"
-        }
-    }
 }
