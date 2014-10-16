@@ -16,8 +16,9 @@ import java.util.LinkedList;
  * @author Ari Michael Ayvazyan
  * @author Jakob Klepp
  * @version 9.11.2012
+ * @deprecated tcp is not implemented yet
  */
-//TODO this class needs a cleanup
+@Deprecated
 public class TCPLockServer implements StoppableRunnable {
 
     private DLock dLock;

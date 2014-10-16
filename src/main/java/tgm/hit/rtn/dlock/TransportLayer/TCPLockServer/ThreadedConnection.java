@@ -16,8 +16,9 @@ import java.util.LinkedList;
 /**
  * @author Ari Michael Ayvazyan
  * @version 9.11.2012
+ * @deprecated tcp is not implemented yet
  */
-//TODO This class needs a cleanup
+@Deprecated
 public class ThreadedConnection extends Thread implements RTNConnection {
 
     private ObjectInputStream in;
