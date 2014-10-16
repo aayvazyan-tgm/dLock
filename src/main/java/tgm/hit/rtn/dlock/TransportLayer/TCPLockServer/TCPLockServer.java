@@ -30,9 +30,9 @@ public class TCPLockServer implements StoppableRunnable {
     private boolean continueWork=true;
 
     public TCPLockServer(GotLock gotLock, PeerManager manager, ServerSocket serverSocket) {
-        servers=new LinkedList<Thread>();
+        this.servers = new LinkedList<Thread>();
         this.gotLock = gotLock;
-        peerManager = manager;
+        this.peerManager = manager;
         this.serverSocket = serverSocket;
     }
 

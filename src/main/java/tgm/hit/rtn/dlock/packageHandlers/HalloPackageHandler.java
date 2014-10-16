@@ -1,8 +1,9 @@
-package tgm.hit.rtn.dlock.RequestHandlers;
+package tgm.hit.rtn.dlock.packageHandlers;
 
 import tgm.hit.rtn.dlock.TransportLayer.RTNConnection;
+import tgm.hit.rtn.dlock.protocol.PackageType;
+import tgm.hit.rtn.dlock.protocol.RTNPackage;
 import tgm.hit.rtn.dlock.protocol.requests.Hallo;
-import tgm.hit.rtn.dlock.protocol.requests.Request;
 import tgm.hit.rtn.dlock.protocol.responses.Welcome;
 
 /**
@@ -10,16 +11,18 @@ import tgm.hit.rtn.dlock.protocol.responses.Welcome;
  * @author Jakob Klepp
  * @version 13.10.2014
  */
-public class HalloRequestHandler implements RequestListener {
+public class HalloPackageHandler implements PackageListener {
     /** contains a instance of this class */
-    private static HalloRequestHandler instance;
+    private static HalloPackageHandler instance;
 
     /** This class should not be instanced manually. */
-    private HalloRequestHandler(){};
+    private HalloPackageHandler(){}
+
     @Override
-    public void handleRequest(Request request, RTNConnection threadedConnection) {
-        if(request instanceof Hallo){
-            Hallo halloReq=(Hallo)request;
+    public void handlePackage(RTNPackage pkg, RTNConnection threadedConnection) {
+        if(pkg.type == PackageType.REQUEST
+                && pkg.msg.equals(Hallo.HALLO_MESSAGE)){
+            // welcome response
             threadedConnection.answer(new Welcome());
         }
     }
@@ -28,9 +31,9 @@ public class HalloRequestHandler implements RequestListener {
      * Static factory
      * @return A instance for for HalloRequestHandler
      */
-    public static HalloRequestHandler getInstance() {
+    public static HalloPackageHandler getInstance() {
         if(instance == null) {
-            instance = new HalloRequestHandler();
+            instance = new HalloPackageHandler();
         }
         return instance;
     }
@@ -39,7 +42,7 @@ public class HalloRequestHandler implements RequestListener {
      * Instance setter for testing (mocking) purpose.
      */
     @Deprecated
-    public static void setInstance(HalloRequestHandler newInstance) {
+    public static void setInstance(HalloPackageHandler newInstance) {
         instance = newInstance;
     }
 }

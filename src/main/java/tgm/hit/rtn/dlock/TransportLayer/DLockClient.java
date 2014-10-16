@@ -5,12 +5,12 @@ package tgm.hit.rtn.dlock.TransportLayer;
  */
 public interface DLockClient {
     /**
-     * sends a hello message
+     * sends a hello msg
      */
 	public abstract void hallo();
 
     /**
-     * sends a bye message
+     * sends a bye msg
      */
 	public abstract void bye();
 
@@ -20,7 +20,7 @@ public interface DLockClient {
 	public abstract void lock();
 
     /**
-     * sends a unlock message
+     * sends a unlock msg
      */
 	public abstract void unlock();
 

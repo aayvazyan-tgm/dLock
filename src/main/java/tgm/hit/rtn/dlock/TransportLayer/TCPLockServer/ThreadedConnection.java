@@ -4,9 +4,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import tgm.hit.rtn.dlock.Peer;
 import tgm.hit.rtn.dlock.PeerManager;
-import tgm.hit.rtn.dlock.RequestHandlers.*;
+import tgm.hit.rtn.dlock.packageHandlers.*;
 import tgm.hit.rtn.dlock.TransportLayer.RTNConnection;
-import tgm.hit.rtn.dlock.protocol.requests.Request;
+import tgm.hit.rtn.dlock.protocol.RTNPackage;
 import tgm.hit.rtn.dlock.protocol.responses.Response;
 
 import java.io.IOException;
@@ -26,25 +26,25 @@ public class ThreadedConnection extends Thread implements RTNConnection{
     private Socket connection;
     private String serverName = "";
     private PeerManager peerManager;
-    private LinkedList<RequestListener> requestListener;
+    private LinkedList<PackageListener> packageListener;
 
 
     public ThreadedConnection(Socket sc)//allows multiple connections
     {
         this.connection = sc;
-        initializeRequestHandlers();
+        this.initializeRequestHandlers();
     }
 
     private void initializeRequestHandlers() {
-        addRequestHandler(ByeRequestHandler.getInstance());
-        addRequestHandler(GetPeerListRequestHandler.getInstance());
-        addRequestHandler(HalloRequestHandler.getInstance());
-        addRequestHandler(LockRequestHandler.getInstance());
-        addRequestHandler(UnlockRequestHandler.getInstance());
+        this.addRequestHandler(ByePackageHandler.getInstance());
+        this.addRequestHandler(GetPeerListPackageHandler.getInstance());
+        this.addRequestHandler(HalloPackageHandler.getInstance());
+        this.addRequestHandler(LockPackageHandler.getInstance());
+        this.addRequestHandler(UnlockPackageHandler.getInstance());
     }
 
     public void run() {
-        startRunning();
+        this.startRunning();
     }
 
     //set up and run the server
@@ -86,9 +86,9 @@ public class ThreadedConnection extends Thread implements RTNConnection{
             //have conversation
             try {
                 errors=0;
-                Request req = (Request) in.readObject();
+                RTNPackage req = (RTNPackage) in.readObject();
                 showMessage("Nachricht Empfangen ");
-                handleRequest(req);
+                packageRequest(req);
             } catch (ClassNotFoundException classNotFoundException) {
                 showMessage("Invalid Input");
                 errors++;
@@ -96,8 +96,9 @@ public class ThreadedConnection extends Thread implements RTNConnection{
             }
         } while (true);
     }
+
     public Peer getPartner(){
-        Peer partner=new Peer(connection.getPort(),connection.getInetAddress().toString());
+        Peer partner = new Peer(connection.getPort(),connection.getInetAddress().toString());
         return partner;
     }
 
@@ -105,17 +106,17 @@ public class ThreadedConnection extends Thread implements RTNConnection{
      * Adds a RequestListener to listen for Requests.
      * @param rq New request listener.
      */
-    public void addRequestHandler(RequestListener rq){
-        if(requestListener == null) requestListener = new LinkedList<RequestListener>();
-        requestListener.add(rq);
+    public void addRequestHandler(PackageListener rq){
+        if(packageListener == null) packageListener = new LinkedList<PackageListener>();
+        packageListener.add(rq);
     }
     /**
      * Handles the requests
      * @param req Request to be handled.
      */
-    private void handleRequest(Request req) {
-        for(RequestListener handler:this.requestListener){
-            handler.handleRequest(req,this);
+    private void packageRequest(RTNPackage req) {
+        for(PackageListener handler: this.packageListener){
+            //handler.packageRequest(req, this);
         }
     }
 

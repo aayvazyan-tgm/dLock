@@ -1,7 +1,8 @@
-package tgm.hit.rtn.dlock.RequestHandlers;
+package tgm.hit.rtn.dlock.packageHandlers;
 
 import tgm.hit.rtn.dlock.TransportLayer.RTNConnection;
-import tgm.hit.rtn.dlock.protocol.requests.Request;
+import tgm.hit.rtn.dlock.protocol.PackageType;
+import tgm.hit.rtn.dlock.protocol.RTNPackage;
 import tgm.hit.rtn.dlock.protocol.requests.Unlock;
 
 /**
@@ -9,17 +10,18 @@ import tgm.hit.rtn.dlock.protocol.requests.Unlock;
  * @author Jakob Klepp
  * @version 13.10.2014
  */
-public class UnlockRequestHandler implements RequestListener {
+public class UnlockPackageHandler implements PackageListener {
     /** contains a instance of this class */
-    private static UnlockRequestHandler instance;
+    private static UnlockPackageHandler instance;
 
     /** This class should not be instanced manually. */
-    private UnlockRequestHandler(){};
+    private UnlockPackageHandler(){};
 
     @Override
-    public void handleRequest(Request request, RTNConnection threadedConnection) {
-        if(request instanceof Unlock){
-            Unlock unlockReq=(Unlock)request;
+    public void handlePackage(RTNPackage pkg, RTNConnection threadedConnection) {
+        if(pkg.type == PackageType.REQUEST
+                && pkg.msg.equals(Unlock.UNLOCK_MESSAGE)){
+            Unlock unlockReq=(Unlock)pkg;
             //Because of a "Is the system locked?" request. unlock requests do not need to be handled
         }
     }
@@ -28,9 +30,9 @@ public class UnlockRequestHandler implements RequestListener {
      * Static factory
      * @return A instance for for UnlockRequestHandler
      */
-    public static UnlockRequestHandler getInstance() {
+    public static UnlockPackageHandler getInstance() {
         if(instance == null) {
-            instance = new UnlockRequestHandler();
+            instance = new UnlockPackageHandler();
         }
         return instance;
     }
@@ -39,7 +41,7 @@ public class UnlockRequestHandler implements RequestListener {
      * Instance setter for testing (mocking) purpose.
      */
     @Deprecated
-    public static void setInstance(UnlockRequestHandler newInstance) {
+    public static void setInstance(UnlockPackageHandler newInstance) {
         instance = newInstance;
     }
 }

@@ -1,13 +1,13 @@
 package tgm.hit.rtn.dlock.protocol.requests;
 
-import tgm.hit.rtn.dlock.protocol.*;
+import tgm.hit.rtn.dlock.protocol.RTNPackage;
+import tgm.hit.rtn.dlock.protocol.PackageType;
 
-public abstract class Request implements tgm.hit.rtn.dlock.protocol.Package {
-
-	private PackageType type = PackageType.REQUEST;
-
-    @Override
-    public PackageType getPackageType() {
-        return type;
+public abstract class Request extends RTNPackage {
+    /**
+     * Sets RTNPackage#type to PackageType.REQUEST
+     */
+    public Request() {
+        this.type = PackageType.REQUEST;
     }
 }
