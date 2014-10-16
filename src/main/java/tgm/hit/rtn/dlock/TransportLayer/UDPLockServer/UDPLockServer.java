@@ -10,13 +10,13 @@ import tgm.hit.rtn.dlock.protocol.responses.Response;
 import java.util.LinkedList;
 
 //TODO no Server functionality is implemented yet
-public class UDPLockClient implements RTNConnection {
+public class UDPLockServer implements RTNConnection {
 
     private PeerManager peerManager;
     private LinkedList<RequestListener> requestListener;
 
 
-    public UDPLockClient()//allows multiple connections
+    public UDPLockServer()//allows multiple connections
     {
         initializeRequestHandlers();
     }
