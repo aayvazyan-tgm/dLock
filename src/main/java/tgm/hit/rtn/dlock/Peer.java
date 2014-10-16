@@ -27,7 +27,7 @@ public class Peer implements Serializable{
      * @param host Value to set for property 'host'.
      */
     public void setHost(String host) {
-        host = host;
+        this.host = host;
     }
 
     /**

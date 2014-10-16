@@ -18,7 +18,7 @@ public class HalloRequestHandler implements RequestListener {
     @Override
     public void handleRequest(Request request, RTNConnection threadedConnection) {
         if(request instanceof Hallo){
-            Hallo byeReq=(Hallo)request;
+            Hallo halloReq=(Hallo)request;
             threadedConnection.answer(new Welcome());
         }
     }

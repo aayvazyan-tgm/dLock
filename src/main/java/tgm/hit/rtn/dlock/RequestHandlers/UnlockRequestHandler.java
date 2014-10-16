@@ -18,7 +18,7 @@ public class UnlockRequestHandler implements RequestListener {
     @Override
     public void handleRequest(Request request, RTNConnection threadedConnection) {
         if(request instanceof Unlock){
-            Unlock byeReq=(Unlock)request;
+            Unlock unlockReq=(Unlock)request;
             //Because of a "Is the system locked?" request. unlock requests do not need to be handled
         }
     }

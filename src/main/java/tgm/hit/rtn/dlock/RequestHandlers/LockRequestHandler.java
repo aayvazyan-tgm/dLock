@@ -17,7 +17,7 @@ public class LockRequestHandler implements RequestListener {
     @Override
     public void handleRequest(Request request, RTNConnection threadedConnection) {
         if(request instanceof Lock){
-            Lock byeReq=(Lock)request;
+            Lock lockReq=(Lock)request;
             //TODO return locked/not locked status!
         }
     }

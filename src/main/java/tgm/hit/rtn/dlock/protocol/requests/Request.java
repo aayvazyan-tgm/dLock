@@ -2,10 +2,12 @@ package tgm.hit.rtn.dlock.protocol.requests;
 
 import tgm.hit.rtn.dlock.protocol.*;
 
-import java.io.Serializable;
+public abstract class Request implements tgm.hit.rtn.dlock.protocol.Package {
 
-public class Request extends tgm.hit.rtn.dlock.protocol.Package implements Serializable {
+	private PackageType type = PackageType.REQUEST;
 
-	public PackageType type = PackageType.REQUEST;
-
+    @Override
+    public PackageType getPackageType() {
+        return type;
+    }
 }

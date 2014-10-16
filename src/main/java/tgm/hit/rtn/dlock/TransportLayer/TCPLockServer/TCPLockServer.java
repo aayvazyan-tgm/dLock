@@ -1,6 +1,9 @@
-package tgm.hit.rtn.dlock.TransportLayer.UDPLockServer;
+package tgm.hit.rtn.dlock.TransportLayer.TCPLockServer;
 
-import tgm.hit.rtn.dlock.*;
+import tgm.hit.rtn.dlock.DLock;
+import tgm.hit.rtn.dlock.GotLock;
+import tgm.hit.rtn.dlock.PeerManager;
+import tgm.hit.rtn.dlock.TransportLayer.util.StoppableRunnable;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -15,7 +18,7 @@ import java.util.LinkedList;
  * @version 9.11.2012
  */
 //TODO this class needs a cleanup
-public class UDPDLockServer implements StoppableRunnable{
+public class TCPLockServer implements StoppableRunnable {
 
 	private DLock dLock;
 	private GotLock gotLock;
@@ -24,7 +27,7 @@ public class UDPDLockServer implements StoppableRunnable{
     private LinkedList<Thread> servers;
     private boolean continueWork=true;
 
-    public UDPDLockServer(GotLock gotLock, PeerManager manager, ServerSocket serverSocket) {
+    public TCPLockServer(GotLock gotLock, PeerManager manager, ServerSocket serverSocket) {
         servers=new LinkedList<Thread>();
         this.gotLock = gotLock;
         peerManager = manager;
@@ -54,7 +57,7 @@ public class UDPDLockServer implements StoppableRunnable{
     }
 
 	/**
-	 * @see java.lang.Runnable#run()
+	 * @see Runnable#run()
 	 */
 	public void run() {
         while(continueWork){

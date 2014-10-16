@@ -3,6 +3,7 @@ package tgm.hit.rtn.dlock;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import tgm.hit.rtn.dlock.TransportLayer.DLockClient;
 
 import static org.mockito.Mockito.mock;
 
@@ -22,17 +23,8 @@ public class Test_DLockClient_lockWhile {
     public void prepare() {
         peerManager = new LinkedListPeerManager();
         dLockClient = mock(DLockClient.class);
-        after100Millies = new GotLock() {
-            @Override
-            public boolean gotLock() {
-                try {
-                    Thread.sleep(100);
-                } catch (InterruptedException ignored) {}
-                return true;
-            }
-        };
-
-        lock = new DLock(peerManager, dLockClient, after100Millies);
+        
+        lock = new DLock(peerManager, dLockClient);
 
         sumThis = new Integer[]{1, 1, 2};
         expectedResult = 4;

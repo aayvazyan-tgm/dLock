@@ -1,4 +1,4 @@
-package tgm.hit.rtn.dlock.TransportLayer.UDPLockServer;
+package tgm.hit.rtn.dlock.TransportLayer.util;
 
 /**
  * @author Ari Michael Ayvazyan
