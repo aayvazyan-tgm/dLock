@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class Welcome extends Response implements Serializable {
 
-	public String msg = "WELCOME";
+    public String msg = "WELCOME";
 
     @Override
     public String getMessage() {

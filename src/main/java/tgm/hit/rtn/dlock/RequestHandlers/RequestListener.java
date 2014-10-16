@@ -12,7 +12,7 @@ public interface RequestListener {
     /**
      * Handles the received Request
      *
-     * @param request Request of question.
+     * @param request               Request of question.
      * @param threadedRTNConnection Connection the request arrived on.
      */
     public void handleRequest(Request request,

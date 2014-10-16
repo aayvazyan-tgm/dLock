@@ -13,12 +13,19 @@ import tgm.hit.rtn.dlock.protocol.responses.Welcome;
 public class HalloRequestHandler implements RequestListener {
     /* contains a instance of this class */
     public final static HalloRequestHandler INSTANCE = new HalloRequestHandler();
-    /** This class should not be instanced manually. */
-    private HalloRequestHandler(){};
+
+    /**
+     * This class should not be instanced manually.
+     */
+    private HalloRequestHandler() {
+    }
+
+    ;
+
     @Override
     public void handleRequest(Request request, RTNConnection threadedConnection) {
-        if(request instanceof Hallo){
-            Hallo halloReq=(Hallo)request;
+        if (request instanceof Hallo) {
+            Hallo halloReq = (Hallo) request;
             threadedConnection.answer(new Welcome());
         }
     }

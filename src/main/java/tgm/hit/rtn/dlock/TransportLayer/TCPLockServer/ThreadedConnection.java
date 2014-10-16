@@ -18,7 +18,7 @@ import java.util.LinkedList;
  * @version 9.11.2012
  */
 //TODO This class needs a cleanup
-public class ThreadedConnection extends Thread implements RTNConnection{
+public class ThreadedConnection extends Thread implements RTNConnection {
 
     private ObjectInputStream in;
     private Socket connection;
@@ -83,7 +83,7 @@ public class ThreadedConnection extends Thread implements RTNConnection{
         do {
             //have conversation
             try {
-                errors=0;
+                errors = 0;
                 Request req = (Request) in.readObject();
                 showMessage("Nachricht Empfangen ");
                 handleRequest(req);
@@ -94,32 +94,37 @@ public class ThreadedConnection extends Thread implements RTNConnection{
             }
         } while (true);
     }
-    public Peer getPartner(){
-        Peer partner=new Peer(connection.getPort(),connection.getInetAddress().toString());
+
+    public Peer getPartner() {
+        Peer partner = new Peer(connection.getPort(), connection.getInetAddress().toString());
         return partner;
     }
 
     /**
      * Adds a RequestListener to listen for Requests.
+     *
      * @param rq New request listener.
      */
-    public void addRequestHandler(RequestListener rq){
-        if(requestListener == null) requestListener = new LinkedList<RequestListener>();
+    public void addRequestHandler(RequestListener rq) {
+        if (requestListener == null) requestListener = new LinkedList<RequestListener>();
         requestListener.add(rq);
     }
+
     /**
      * Handles the requests
+     *
      * @param req Request to be handled.
      */
     private void handleRequest(Request req) {
-        for(RequestListener handler:this.requestListener){
-            handler.handleRequest(req,this);
+        for (RequestListener handler : this.requestListener) {
+            handler.handleRequest(req, this);
         }
     }
 
-    public void answer(Response response){
+    public void answer(Response response) {
         //TODO send the response
     }
+
     private void close() {
         showMessage("Closing Connection...");
         try {

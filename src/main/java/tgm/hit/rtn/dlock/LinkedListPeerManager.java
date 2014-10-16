@@ -8,11 +8,11 @@ import java.util.ArrayList;
  * @author Ari Michael Ayvazyan
  * @version 12.10.2014
  */
-public class LinkedListPeerManager implements PeerManager{
+public class LinkedListPeerManager implements PeerManager {
     private ArrayList<Peer> peers;
 
-    public LinkedListPeerManager(){
-        this.peers=new ArrayList<Peer>();
+    public LinkedListPeerManager() {
+        this.peers = new ArrayList<Peer>();
     }
 
     @Override
@@ -27,8 +27,8 @@ public class LinkedListPeerManager implements PeerManager{
 
     @Override
     public boolean removePeer(Peer peer) {
-        for (Peer storedPeer:peers) {
-            if(peer.equals(storedPeer))this.peers.remove(storedPeer);
+        for (Peer storedPeer : peers) {
+            if (peer.equals(storedPeer)) this.peers.remove(storedPeer);
         }
         return this.peers.remove(peer);
     }

@@ -5,6 +5,7 @@ import tgm.hit.rtn.dlock.TransportLayer.UDPLockClient.UDPMulticastLockClient;
 
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
+
 /**
  * @author Ari Michael Ayvazyan
  * @author Jakob Klepp
@@ -16,13 +17,12 @@ public class DLock implements GotLock {
 
     private DLockClient dLockClient;
 
-    private boolean isLocked=false;
+    private boolean isLocked = false;
 
     /**
      * Creates a dLock using a default configuration.
-     * 
      */
-    public DLock(){
+    public DLock() {
         this(new LinkedListPeerManager(),
                 new UDPMulticastLockClient());
     }
@@ -39,14 +39,14 @@ public class DLock implements GotLock {
     }
 
     /**
-     *  Locks while the call is being executed. (blocking)
-     *  Waits until The System is not locked.
+     * Locks while the call is being executed. (blocking)
+     * Waits until The System is not locked.
      *
-     *  @param call the call to be executed while locked
-     *  @param params the params for the call
-     *  @return returns the return value of call
-     *  @throws java.lang.InterruptedException if the thread was interrupted
-     *  while waiting for a lock
+     * @param call   the call to be executed while locked
+     * @param params the params for the call
+     * @return returns the return value of call
+     * @throws java.lang.InterruptedException if the thread was interrupted
+     *                                        while waiting for a lock
      */
     public Object lockWhile(Callback call, Object... params) throws InterruptedException {
         lock();
@@ -62,11 +62,11 @@ public class DLock implements GotLock {
      * been acquired.
      *
      * @throws java.lang.InterruptedException Throws when interrupted while
-     * waiting for lock.
+     *                                        waiting for lock.
      */
     public void lock() throws InterruptedException {
         while (!tryLock()) {
-            Thread.sleep(Settings.RETRY_TIME_NANO+ new Random().nextInt(Settings.VARIANCE));
+            Thread.sleep(Settings.RETRY_TIME_NANO + new Random().nextInt(Settings.VARIANCE));
         }
     }
 
@@ -84,10 +84,10 @@ public class DLock implements GotLock {
      */
     public boolean tryLock() {
         beforeTryToLock();
-        boolean acquiredLock=false;
+        boolean acquiredLock = false;
 
         // TODO send a lock request
-        
+
         afterTryToLock(acquiredLock);
         return acquiredLock;
     }
@@ -120,26 +120,26 @@ public class DLock implements GotLock {
      * @return true if the lock was acquired and false if the waiting time
      * elapsed before the lock was acquired
      * @throws InterruptedException if the current thread is interrupted while
-     * acquiring the lock (and interruption of lock acquisition is supported)
+     *                              acquiring the lock (and interruption of lock acquisition is supported)
      */
     public boolean tryLock(long time, TimeUnit unit) throws InterruptedException {
         long sleepUntil = System.currentTimeMillis() + unit.toMillis(time);
         final boolean[] success = {false};
-        Thread tryLockThread=new Thread(new Runnable() {
+        Thread tryLockThread = new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
                     lock();
-                    success[0]=true;
+                    success[0] = true;
                 } catch (InterruptedException e) {
                     /* This exception is expected if the time runs out */
                 }
             }
         });
-        while(success[0] == false && System.currentTimeMillis() < sleepUntil){
+        while (success[0] == false && System.currentTimeMillis() < sleepUntil) {
             Thread.sleep(100);
         }
-        if(tryLockThread.isAlive())tryLockThread.interrupt();
+        if (tryLockThread.isAlive()) tryLockThread.interrupt();
         return success[0];
     }
 
@@ -161,16 +161,17 @@ public class DLock implements GotLock {
 
     /**
      * Sets the lock status that should be represented to the outside.
+     *
      * @param locked
      */
     private void setLockStatus(boolean locked) {
-        this.isLocked=locked;
+        this.isLocked = locked;
     }
 
     /**
      * Should be called before acquiring a lock
      */
-    private void beforeTryToLock(){
+    private void beforeTryToLock() {
         //We want to set our lock status to true BEFORE we have acquired a lock,
         //so if a other client sends a request while we try to acquire a lock he shall not receive the lock
         setLockStatus(true);
@@ -178,6 +179,7 @@ public class DLock implements GotLock {
 
     /**
      * should be called after trying to acquire a lock
+     *
      * @param acquiredLock true if a lock was acquired, false otherwise
      */
     private void afterTryToLock(boolean acquiredLock) {

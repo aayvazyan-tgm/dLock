@@ -13,14 +13,21 @@ import tgm.hit.rtn.dlock.protocol.responses.PeerList;
 public class GetPeerListRequestHandler implements RequestListener {
     /* contains a instance of this class */
     public final static GetPeerListRequestHandler INSTANCE = new GetPeerListRequestHandler();
-    /** This class should not be instanced manually. */
-    private GetPeerListRequestHandler(){};
+
+    /**
+     * This class should not be instanced manually.
+     */
+    private GetPeerListRequestHandler() {
+    }
+
+    ;
+
     @Override
     public void handleRequest(Request request, RTNConnection threadedConnection) {
-        if(request instanceof GetPeerList){
-            GetPeerList peerReq=(GetPeerList)request;
-            PeerList response=new PeerList();
-            response.peers= threadedConnection.getPeerManager().getPeers();
+        if (request instanceof GetPeerList) {
+            GetPeerList peerReq = (GetPeerList) request;
+            PeerList response = new PeerList();
+            response.peers = threadedConnection.getPeerManager().getPeers();
             threadedConnection.answer(response);
         }
     }

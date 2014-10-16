@@ -4,7 +4,7 @@ import tgm.hit.rtn.dlock.protocol.*;
 
 public abstract class Request implements tgm.hit.rtn.dlock.protocol.Package {
 
-	private PackageType type = PackageType.REQUEST;
+    private PackageType type = PackageType.REQUEST;
 
     @Override
     public PackageType getPackageType() {

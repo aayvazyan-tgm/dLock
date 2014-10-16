@@ -12,12 +12,19 @@ import tgm.hit.rtn.dlock.protocol.requests.Request;
 public class LockRequestHandler implements RequestListener {
     /* contains a instance of this class */
     public final static LockRequestHandler INSTANCE = new LockRequestHandler();
-    /** This class should not be instanced manually. */
-    private LockRequestHandler(){};
+
+    /**
+     * This class should not be instanced manually.
+     */
+    private LockRequestHandler() {
+    }
+
+    ;
+
     @Override
     public void handleRequest(Request request, RTNConnection threadedConnection) {
-        if(request instanceof Lock){
-            Lock lockReq=(Lock)request;
+        if (request instanceof Lock) {
+            Lock lockReq = (Lock) request;
             //TODO return locked/not locked status!
         }
     }
