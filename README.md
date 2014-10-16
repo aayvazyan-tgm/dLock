@@ -6,7 +6,39 @@ dLock is a peer to peer distributed lock manager.
 #Installation:
 Simply add the .jar as a library.
 
-A Maven repo may be available soon. 
+## As a maven dependency
+
+Add the following repository:
+http://ci.truh.in/nexus/content/repositories/releases/
+
+* GroupId: tgm.hit.rtn
+* ArtifactId: dLock
+
+The available versions can be seen here:
+http://ci.truh.in/nexus/content/repositories/releases/tgm/hit/rtn/dLock/
+The version numbering is based on the revision and the sha1 hash of the used
+commit.
+
+A gradle build file, depending on dLock could look like this:
+
+```gradle
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+
+version = '1.0'
+
+repositories {
+    mavenCentral()
+    maven {
+        url "http://ci.truh.in/nexus/content/repositories/releases/"
+    }
+}
+
+dependencies {
+    compile group: 'tgm.hit.rtn', name: 'dLock', version: '+'
+}
+```
 
 #Usage:
 To get detailed information about the possibilities of dLock, take a look at the JavaDoc of the `DLock` class
