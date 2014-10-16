@@ -1,8 +1,9 @@
-package tgm.hit.rtn.dlock;
+package tgm.hit.rtn.dlock.protocol;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import tgm.hit.rtn.dlock.Peer;
 import tgm.hit.rtn.dlock.protocol.PackageType;
 import tgm.hit.rtn.dlock.protocol.requests.*;
 import tgm.hit.rtn.dlock.protocol.responses.NoCurrentLock;
@@ -13,7 +14,7 @@ import tgm.hit.rtn.dlock.protocol.responses.Welcome;
 /**
  * Tests the constructors of all the protocol Packages
  */
-public class ProtocolConstructors {
+public class Test_ProtocolConstructors {
     String testObject;
     Peer[] testPeers;
 

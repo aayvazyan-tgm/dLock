@@ -4,5 +4,7 @@ import java.io.Serializable;
 
 public class Bye extends Request implements Serializable{
     public static final String BYE_MESSAGE = "BYE";
-	public String msg = BYE_MESSAGE;
+    public Bye() {
+        this.msg = BYE_MESSAGE;
+    }
 }
