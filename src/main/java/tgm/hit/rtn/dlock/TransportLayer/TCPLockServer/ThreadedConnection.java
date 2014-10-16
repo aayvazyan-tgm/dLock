@@ -1,21 +1,23 @@
-package tgm.hit.rtn.dlock.TransportLayer.UDPLockServer;
+package tgm.hit.rtn.dlock.TransportLayer.TCPLockServer;
 
 import tgm.hit.rtn.dlock.Peer;
 import tgm.hit.rtn.dlock.PeerManager;
 import tgm.hit.rtn.dlock.RequestHandlers.*;
 import tgm.hit.rtn.dlock.TransportLayer.RTNConnection;
-import tgm.hit.rtn.dlock.protocol.requests.*;
+import tgm.hit.rtn.dlock.protocol.requests.Request;
 import tgm.hit.rtn.dlock.protocol.responses.Response;
 
-import java.io.*;
-import java.net.*;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.net.Socket;
 import java.util.Date;
 import java.util.LinkedList;
+
 /**
  * @author Ari Michael Ayvazyan
  * @version 9.11.2012
  */
-//TODO This class needs a cleanup and is currently handling TCP requests!
+//TODO This class needs a cleanup
 public class ThreadedConnection extends Thread implements RTNConnection{
 
     private ObjectInputStream in;
