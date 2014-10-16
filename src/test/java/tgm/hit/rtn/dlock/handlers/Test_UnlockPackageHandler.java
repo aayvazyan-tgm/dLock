@@ -1,12 +1,12 @@
-package tgm.hit.rtn.dlock.packageHandlers;
+package tgm.hit.rtn.dlock.handlers;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import tgm.hit.rtn.dlock.Peer;
 import tgm.hit.rtn.dlock.PeerManager;
-import tgm.hit.rtn.dlock.TransportLayer.DLockClient;
-import tgm.hit.rtn.dlock.TransportLayer.RTNConnection;
+import tgm.hit.rtn.dlock.transport.DLockClient;
+import tgm.hit.rtn.dlock.transport.RTNConnection;
 import tgm.hit.rtn.dlock.protocol.RTNPackage;
 import tgm.hit.rtn.dlock.protocol.requests.*;
 import tgm.hit.rtn.dlock.protocol.responses.*;
@@ -14,16 +14,16 @@ import tgm.hit.rtn.dlock.protocol.responses.*;
 import static org.mockito.Mockito.mock;
 
 /**
- * Unit tests for LockPackageHandler
+ * Unit tests for UnlockPackageHandler
  * @author Jakob Klepp
  */
-public class Test_LockPackageHandler {
+public class Test_UnlockPackageHandler {
     public PeerManager manager;
     public int connectionCalls;
     public RTNConnection connection;
     public RTNPackage[] pkgs;
     public RTNConnection failConnection;
-    public Lock lock;
+    public Unlock unlock;
 
     @Before
     public void prepare() {
@@ -50,7 +50,7 @@ public class Test_LockPackageHandler {
                 new Bye(),
                 new GetPeerList(),
                 new Hallo(),
-                new Unlock(""),
+                new Lock(""),
                 new NoCurrentLock(""),
                 new ObjectIsLocked(""),
                 new PeerList(new Peer[]{new Peer(1, "localhost")}),
@@ -65,7 +65,7 @@ public class Test_LockPackageHandler {
             @Override public Peer getPartner() { return null; }
             @Override public void answer(Response response) {}
         };
-        lock = new Lock("");
+        unlock = new Unlock("");
     }
 
     //
@@ -74,19 +74,21 @@ public class Test_LockPackageHandler {
 
     @Test
     public void test_handlePackage_correctUsage() {
-        Assert.fail("Not implemented");  // The package handler, not only the test
-        //LockPackageHandler handler = LockPackageHandler.getInstance();
-        //
-        //handler.handlePackage(lock, connection);
-        //
+        // TODO implement the test case in a correct way
+        // it has to be different from the ByePackageHandler on
+        UnlockPackageHandler handler = UnlockPackageHandler.getInstance();
+        handler.handlePackage(unlock, connection);
+
         //Assert.assertEquals(1, connectionCalls);
+        Assert.assertTrue("According to current plans, the Unlock package can be safely ignored.", true);
     }
 
     @Test
     public void test_getInstance_correctUsage() {
-        LockPackageHandler handler = LockPackageHandler.getInstance();
+        UnlockPackageHandler handler = UnlockPackageHandler.getInstance();
+
         Assert.assertNotNull(handler);
-        Assert.assertTrue(handler instanceof LockPackageHandler);
+        Assert.assertTrue(handler instanceof UnlockPackageHandler);
     }
 
     //
@@ -95,29 +97,29 @@ public class Test_LockPackageHandler {
 
     @Test
     public void test_getInstance_setNull() {
-        LockPackageHandler.setInstance(null);
+        UnlockPackageHandler.setInstance(null);
 
-        LockPackageHandler handler = LockPackageHandler.getInstance();
+        UnlockPackageHandler handler = UnlockPackageHandler.getInstance();
 
         Assert.assertNotNull(handler);
-        Assert.assertTrue(handler instanceof LockPackageHandler);
+        Assert.assertTrue(handler instanceof UnlockPackageHandler);
     }
 
     @Test
     public void test_getInstance_useSetter() {
-        LockPackageHandler myHandler = mock(LockPackageHandler.class);
-        LockPackageHandler.setInstance(myHandler);
+        UnlockPackageHandler myHandler = mock(UnlockPackageHandler.class);
+        UnlockPackageHandler.setInstance(myHandler);
 
-        LockPackageHandler handler = LockPackageHandler.getInstance();
+        UnlockPackageHandler handler = UnlockPackageHandler.getInstance();
 
         Assert.assertNotNull(handler);
         Assert.assertEquals(myHandler, handler);
-        Assert.assertTrue(handler instanceof LockPackageHandler);
+        Assert.assertTrue(handler instanceof UnlockPackageHandler);
     }
 
     @Test
     public void test_handlePackage_wrongPackage() {
-        LockPackageHandler handler = LockPackageHandler.getInstance();
+        UnlockPackageHandler handler = UnlockPackageHandler.getInstance();
 
         for(RTNPackage pkg: pkgs) {
             handler.handlePackage(pkg, failConnection);
@@ -128,7 +130,7 @@ public class Test_LockPackageHandler {
     // get along with invalid packages
     @Test
     public void test_handlePackage_nullPackage() {
-        LockPackageHandler handler = LockPackageHandler.getInstance();
+        UnlockPackageHandler handler = UnlockPackageHandler.getInstance();
 
         handler.handlePackage(null, connection);
     }
@@ -136,8 +138,8 @@ public class Test_LockPackageHandler {
     // if connection == null, a we cannot proceed
     @Test(expected = NullPointerException.class)
     public void test_handlePackage_nullConnection() {
-        LockPackageHandler handler = LockPackageHandler.getInstance();
+        UnlockPackageHandler handler = UnlockPackageHandler.getInstance();
 
-        handler.handlePackage(lock, null);
+        handler.handlePackage(unlock, null);
     }
 }

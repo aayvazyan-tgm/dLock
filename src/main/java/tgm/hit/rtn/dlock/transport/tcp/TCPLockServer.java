@@ -1,11 +1,11 @@
-package tgm.hit.rtn.dlock.TransportLayer.TCPLockServer;
+package tgm.hit.rtn.dlock.transport.tcp;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import tgm.hit.rtn.dlock.DLock;
 import tgm.hit.rtn.dlock.GotLock;
 import tgm.hit.rtn.dlock.PeerManager;
-import tgm.hit.rtn.dlock.TransportLayer.util.StoppableRunnable;
+import tgm.hit.rtn.dlock.transport.StoppableRunnable;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -17,9 +17,7 @@ import java.util.LinkedList;
  * @author Ari Michael Ayvazyan
  * @author Jakob Klepp
  * @version 9.11.2012
- * @deprecated tcp is not implemented yet
  */
-@Deprecated
 public class TCPLockServer implements StoppableRunnable {
     private static final Logger logger = LoggerFactory.getLogger(TCPLockServer.class);
 

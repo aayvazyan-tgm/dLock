@@ -1,6 +1,6 @@
 package tgm.hit.rtn.dlock;
 
-import tgm.hit.rtn.dlock.TransportLayer.DLockClient;
+import tgm.hit.rtn.dlock.transport.DLockClient;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -48,7 +48,7 @@ public class LinkedListPeerManager implements PeerManager{
     }
 
     /**
-     * @see PeerManager#setClient(tgm.hit.rtn.dlock.TransportLayer.DLockClient)
+     * @see PeerManager#setClient(tgm.hit.rtn.dlock.transport.DLockClient)
      */
     @Override
     public void setClient(DLockClient client) {

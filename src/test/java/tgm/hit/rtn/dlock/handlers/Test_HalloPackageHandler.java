@@ -1,12 +1,12 @@
-package tgm.hit.rtn.dlock.packageHandlers;
+package tgm.hit.rtn.dlock.handlers;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import tgm.hit.rtn.dlock.Peer;
 import tgm.hit.rtn.dlock.PeerManager;
-import tgm.hit.rtn.dlock.TransportLayer.DLockClient;
-import tgm.hit.rtn.dlock.TransportLayer.RTNConnection;
+import tgm.hit.rtn.dlock.transport.DLockClient;
+import tgm.hit.rtn.dlock.transport.RTNConnection;
 import tgm.hit.rtn.dlock.protocol.RTNPackage;
 import tgm.hit.rtn.dlock.protocol.requests.*;
 import tgm.hit.rtn.dlock.protocol.responses.*;
@@ -14,21 +14,23 @@ import tgm.hit.rtn.dlock.protocol.responses.*;
 import static org.mockito.Mockito.mock;
 
 /**
- * Unit tests for GetPeerListPackageHandler
+ * Unit tests for HalloPackageHandler
  * @author Jakob Klepp
  */
-public class Test_GetPeerListPackageHandler {
+public class Test_HalloPackageHandler {
     public PeerManager manager;
     public int connectionGetPeerManagerCalls;
+    public int connectionAnswerCalls;
     public RTNConnection connection;
     public RTNPackage[] pkgs;
     public RTNConnection failConnection;
-    public GetPeerList getPeerList;
+    public Hallo hallo;
 
     @Before
     public void prepare() {
         manager = mock(PeerManager.class);
         connectionGetPeerManagerCalls = 0;
+        connectionAnswerCalls = 0;
         connection = connection = new RTNConnection() {
             @Override
             public PeerManager getPeerManager() {
@@ -41,14 +43,16 @@ public class Test_GetPeerListPackageHandler {
                 };
             }
             @Override public Peer getPartner() { return null; }
-            @Override public void answer(Response response) {}
+            @Override public void answer(Response response) {
+                connectionAnswerCalls ++;
+            }
         };
         pkgs = new RTNPackage[] {
                 mock(RTNPackage.class),
                 mock(Request.class),
                 mock(Response.class),
                 new Bye(),
-                new Hallo(),
+                new GetPeerList(),
                 new Lock(""),
                 new Unlock(""),
                 new NoCurrentLock(""),
@@ -65,7 +69,7 @@ public class Test_GetPeerListPackageHandler {
             @Override public Peer getPartner() { return null; }
             @Override public void answer(Response response) {}
         };
-        getPeerList = new GetPeerList();
+        hallo = new Hallo();
     }
 
     //
@@ -74,19 +78,18 @@ public class Test_GetPeerListPackageHandler {
 
     @Test
     public void test_handlePackage_correctUsage() {
-        // TODO implement the test case in a correct way
-        // it has to be different from the ByePackageHandler on
-        GetPeerListPackageHandler handler = GetPeerListPackageHandler.getInstance();
-        handler.handlePackage(getPeerList, connection);
-        Assert.assertEquals(1, connectionGetPeerManagerCalls);
+        HalloPackageHandler handler = HalloPackageHandler.getInstance();
+        handler.handlePackage(hallo, connection);
+
+        Assert.assertEquals(1, connectionAnswerCalls);
     }
 
     @Test
     public void test_getInstance_correctUsage() {
-        GetPeerListPackageHandler handler = GetPeerListPackageHandler.getInstance();
+        HalloPackageHandler handler = HalloPackageHandler.getInstance();
 
         Assert.assertNotNull(handler);
-        Assert.assertTrue(handler instanceof GetPeerListPackageHandler);
+        Assert.assertTrue(handler instanceof HalloPackageHandler);
     }
 
     //
@@ -95,29 +98,29 @@ public class Test_GetPeerListPackageHandler {
 
     @Test
     public void test_getInstance_setNull() {
-        ByePackageHandler.setInstance(null);
+        HalloPackageHandler.setInstance(null);
 
-        GetPeerListPackageHandler handler = GetPeerListPackageHandler.getInstance();
+        HalloPackageHandler handler = HalloPackageHandler.getInstance();
 
         Assert.assertNotNull(handler);
-        Assert.assertTrue(handler instanceof GetPeerListPackageHandler);
+        Assert.assertTrue(handler instanceof HalloPackageHandler);
     }
 
     @Test
     public void test_getInstance_useSetter() {
-        GetPeerListPackageHandler myHandler = mock(GetPeerListPackageHandler.class);
-        GetPeerListPackageHandler.setInstance(myHandler);
+        HalloPackageHandler myHandler = mock(HalloPackageHandler.class);
+        HalloPackageHandler.setInstance(myHandler);
 
-        GetPeerListPackageHandler handler = GetPeerListPackageHandler.getInstance();
+        HalloPackageHandler handler = HalloPackageHandler.getInstance();
 
         Assert.assertNotNull(handler);
         Assert.assertEquals(myHandler, handler);
-        Assert.assertTrue(handler instanceof GetPeerListPackageHandler);
+        Assert.assertTrue(handler instanceof HalloPackageHandler);
     }
 
     @Test
     public void test_handlePackage_wrongPackage() {
-        GetPeerListPackageHandler handler = GetPeerListPackageHandler.getInstance();
+        HalloPackageHandler handler = HalloPackageHandler.getInstance();
 
         for(RTNPackage pkg: pkgs) {
             handler.handlePackage(pkg, failConnection);
@@ -128,7 +131,7 @@ public class Test_GetPeerListPackageHandler {
     // get along with invalid packages
     @Test
     public void test_handlePackage_nullPackage() {
-        GetPeerListPackageHandler handler = GetPeerListPackageHandler.getInstance();
+        HalloPackageHandler handler = HalloPackageHandler.getInstance();
 
         handler.handlePackage(null, connection);
     }
@@ -136,8 +139,8 @@ public class Test_GetPeerListPackageHandler {
     // if connection == null, a we cannot proceed
     @Test(expected = NullPointerException.class)
     public void test_handlePackage_nullConnection() {
-        GetPeerListPackageHandler handler = GetPeerListPackageHandler.getInstance();
+        HalloPackageHandler handler = HalloPackageHandler.getInstance();
 
-        handler.handlePackage(getPeerList, null);
+        handler.handlePackage(hallo, null);
     }
 }

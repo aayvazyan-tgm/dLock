@@ -1,12 +1,12 @@
-package tgm.hit.rtn.dlock.packageHandlers;
+package tgm.hit.rtn.dlock.handlers;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import tgm.hit.rtn.dlock.Peer;
 import tgm.hit.rtn.dlock.PeerManager;
-import tgm.hit.rtn.dlock.TransportLayer.DLockClient;
-import tgm.hit.rtn.dlock.TransportLayer.RTNConnection;
+import tgm.hit.rtn.dlock.transport.DLockClient;
+import tgm.hit.rtn.dlock.transport.RTNConnection;
 import tgm.hit.rtn.dlock.protocol.RTNPackage;
 import tgm.hit.rtn.dlock.protocol.requests.*;
 import tgm.hit.rtn.dlock.protocol.responses.*;
@@ -14,22 +14,22 @@ import tgm.hit.rtn.dlock.protocol.responses.*;
 import static org.mockito.Mockito.mock;
 
 /**
- * Unit tests for UnlockPackageHandler
+ * Unit tests for ByePackageHandler
  * @author Jakob Klepp
  */
-public class Test_UnlockPackageHandler {
+public class Test_ByePackageHandler {
     public PeerManager manager;
     public int connectionCalls;
     public RTNConnection connection;
     public RTNPackage[] pkgs;
     public RTNConnection failConnection;
-    public Unlock unlock;
+    public Bye bye;
 
     @Before
     public void prepare() {
         manager = mock(PeerManager.class);
         connectionCalls = 0;
-        connection = connection = new RTNConnection() {
+        connection = new RTNConnection() {
             @Override
             public PeerManager getPeerManager() {
                 connectionCalls++;
@@ -47,10 +47,10 @@ public class Test_UnlockPackageHandler {
                 mock(RTNPackage.class),
                 mock(Request.class),
                 mock(Response.class),
-                new Bye(),
                 new GetPeerList(),
                 new Hallo(),
                 new Lock(""),
+                new Unlock(""),
                 new NoCurrentLock(""),
                 new ObjectIsLocked(""),
                 new PeerList(new Peer[]{new Peer(1, "localhost")}),
@@ -65,7 +65,7 @@ public class Test_UnlockPackageHandler {
             @Override public Peer getPartner() { return null; }
             @Override public void answer(Response response) {}
         };
-        unlock = new Unlock("");
+        bye = new Bye();
     }
 
     //
@@ -74,21 +74,19 @@ public class Test_UnlockPackageHandler {
 
     @Test
     public void test_handlePackage_correctUsage() {
-        // TODO implement the test case in a correct way
-        // it has to be different from the ByePackageHandler on
-        UnlockPackageHandler handler = UnlockPackageHandler.getInstance();
-        handler.handlePackage(unlock, connection);
+        ByePackageHandler handler = ByePackageHandler.getInstance();
 
-        //Assert.assertEquals(1, connectionCalls);
-        Assert.assertTrue("According to current plans, the Unlock package can be safely ignored.", true);
+        handler.handlePackage(bye, connection);
+
+        Assert.assertEquals(1, connectionCalls);
     }
 
     @Test
     public void test_getInstance_correctUsage() {
-        UnlockPackageHandler handler = UnlockPackageHandler.getInstance();
+        ByePackageHandler handler = ByePackageHandler.getInstance();
 
         Assert.assertNotNull(handler);
-        Assert.assertTrue(handler instanceof UnlockPackageHandler);
+        Assert.assertTrue(handler instanceof ByePackageHandler);
     }
 
     //
@@ -97,29 +95,29 @@ public class Test_UnlockPackageHandler {
 
     @Test
     public void test_getInstance_setNull() {
-        UnlockPackageHandler.setInstance(null);
+        ByePackageHandler.setInstance(null);
 
-        UnlockPackageHandler handler = UnlockPackageHandler.getInstance();
+        ByePackageHandler handler = ByePackageHandler.getInstance();
 
         Assert.assertNotNull(handler);
-        Assert.assertTrue(handler instanceof UnlockPackageHandler);
+        Assert.assertTrue(handler instanceof ByePackageHandler);
     }
 
     @Test
     public void test_getInstance_useSetter() {
-        UnlockPackageHandler myHandler = mock(UnlockPackageHandler.class);
-        UnlockPackageHandler.setInstance(myHandler);
+        ByePackageHandler myHandler = mock(ByePackageHandler.class);
+        ByePackageHandler.setInstance(myHandler);
 
-        UnlockPackageHandler handler = UnlockPackageHandler.getInstance();
+        ByePackageHandler handler = ByePackageHandler.getInstance();
 
         Assert.assertNotNull(handler);
         Assert.assertEquals(myHandler, handler);
-        Assert.assertTrue(handler instanceof UnlockPackageHandler);
+        Assert.assertTrue(handler instanceof ByePackageHandler);
     }
 
     @Test
     public void test_handlePackage_wrongPackage() {
-        UnlockPackageHandler handler = UnlockPackageHandler.getInstance();
+        ByePackageHandler handler = ByePackageHandler.getInstance();
 
         for(RTNPackage pkg: pkgs) {
             handler.handlePackage(pkg, failConnection);
@@ -130,7 +128,7 @@ public class Test_UnlockPackageHandler {
     // get along with invalid packages
     @Test
     public void test_handlePackage_nullPackage() {
-        UnlockPackageHandler handler = UnlockPackageHandler.getInstance();
+        ByePackageHandler handler = ByePackageHandler.getInstance();
 
         handler.handlePackage(null, connection);
     }
@@ -138,8 +136,8 @@ public class Test_UnlockPackageHandler {
     // if connection == null, a we cannot proceed
     @Test(expected = NullPointerException.class)
     public void test_handlePackage_nullConnection() {
-        UnlockPackageHandler handler = UnlockPackageHandler.getInstance();
+        ByePackageHandler handler = ByePackageHandler.getInstance();
 
-        handler.handlePackage(unlock, null);
+        handler.handlePackage(bye, null);
     }
 }

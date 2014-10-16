@@ -1,4 +1,4 @@
-package tgm.hit.rtn.dlock.TransportLayer;
+package tgm.hit.rtn.dlock.transport;
 
 /**
  * this Interface defines the requests that can be sent to the network.

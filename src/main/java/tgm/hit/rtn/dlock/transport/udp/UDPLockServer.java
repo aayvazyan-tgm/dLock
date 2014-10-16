@@ -1,11 +1,11 @@
-package tgm.hit.rtn.dlock.TransportLayer.UDPLockServer;
+package tgm.hit.rtn.dlock.transport.udp;
 
 import tgm.hit.rtn.dlock.Peer;
 import tgm.hit.rtn.dlock.PeerManager;
-import tgm.hit.rtn.dlock.TransportLayer.RTNConnection;
-import tgm.hit.rtn.dlock.packageHandlers.*;
+import tgm.hit.rtn.dlock.handlers.*;
 import tgm.hit.rtn.dlock.protocol.RTNPackage;
 import tgm.hit.rtn.dlock.protocol.responses.Response;
+import tgm.hit.rtn.dlock.transport.RTNConnection;
 
 import java.util.LinkedList;
 

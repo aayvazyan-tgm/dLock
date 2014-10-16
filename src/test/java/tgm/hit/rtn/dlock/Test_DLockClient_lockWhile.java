@@ -3,7 +3,7 @@ package tgm.hit.rtn.dlock;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import tgm.hit.rtn.dlock.TransportLayer.DLockClient;
+import tgm.hit.rtn.dlock.transport.DLockClient;
 
 import static org.mockito.Mockito.mock;
 

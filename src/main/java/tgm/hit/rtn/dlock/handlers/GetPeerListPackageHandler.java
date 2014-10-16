@@ -1,7 +1,7 @@
-package tgm.hit.rtn.dlock.packageHandlers;
+package tgm.hit.rtn.dlock.handlers;
 
 import tgm.hit.rtn.dlock.Peer;
-import tgm.hit.rtn.dlock.TransportLayer.RTNConnection;
+import tgm.hit.rtn.dlock.transport.RTNConnection;
 import tgm.hit.rtn.dlock.protocol.PackageType;
 import tgm.hit.rtn.dlock.protocol.RTNPackage;
 import tgm.hit.rtn.dlock.protocol.requests.GetPeerList;

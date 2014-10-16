@@ -1,12 +1,12 @@
-package tgm.hit.rtn.dlock.packageHandlers;
+package tgm.hit.rtn.dlock.handlers;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import tgm.hit.rtn.dlock.Peer;
 import tgm.hit.rtn.dlock.PeerManager;
-import tgm.hit.rtn.dlock.TransportLayer.DLockClient;
-import tgm.hit.rtn.dlock.TransportLayer.RTNConnection;
+import tgm.hit.rtn.dlock.transport.DLockClient;
+import tgm.hit.rtn.dlock.transport.RTNConnection;
 import tgm.hit.rtn.dlock.protocol.RTNPackage;
 import tgm.hit.rtn.dlock.protocol.requests.*;
 import tgm.hit.rtn.dlock.protocol.responses.*;
@@ -14,27 +14,25 @@ import tgm.hit.rtn.dlock.protocol.responses.*;
 import static org.mockito.Mockito.mock;
 
 /**
- * Unit tests for HalloPackageHandler
+ * Unit tests for LockPackageHandler
  * @author Jakob Klepp
  */
-public class Test_HalloPackageHandler {
+public class Test_LockPackageHandler {
     public PeerManager manager;
-    public int connectionGetPeerManagerCalls;
-    public int connectionAnswerCalls;
+    public int connectionCalls;
     public RTNConnection connection;
     public RTNPackage[] pkgs;
     public RTNConnection failConnection;
-    public Hallo hallo;
+    public Lock lock;
 
     @Before
     public void prepare() {
         manager = mock(PeerManager.class);
-        connectionGetPeerManagerCalls = 0;
-        connectionAnswerCalls = 0;
+        connectionCalls = 0;
         connection = connection = new RTNConnection() {
             @Override
             public PeerManager getPeerManager() {
-                connectionGetPeerManagerCalls++;
+                connectionCalls++;
                 return new PeerManager() {
                     @Override public void addPeer(Peer peer) { }
                     @Override public Peer[] getPeers() { return new Peer[0]; }
@@ -43,9 +41,7 @@ public class Test_HalloPackageHandler {
                 };
             }
             @Override public Peer getPartner() { return null; }
-            @Override public void answer(Response response) {
-                connectionAnswerCalls ++;
-            }
+            @Override public void answer(Response response) {}
         };
         pkgs = new RTNPackage[] {
                 mock(RTNPackage.class),
@@ -53,7 +49,7 @@ public class Test_HalloPackageHandler {
                 mock(Response.class),
                 new Bye(),
                 new GetPeerList(),
-                new Lock(""),
+                new Hallo(),
                 new Unlock(""),
                 new NoCurrentLock(""),
                 new ObjectIsLocked(""),
@@ -69,7 +65,7 @@ public class Test_HalloPackageHandler {
             @Override public Peer getPartner() { return null; }
             @Override public void answer(Response response) {}
         };
-        hallo = new Hallo();
+        lock = new Lock("");
     }
 
     //
@@ -78,18 +74,19 @@ public class Test_HalloPackageHandler {
 
     @Test
     public void test_handlePackage_correctUsage() {
-        HalloPackageHandler handler = HalloPackageHandler.getInstance();
-        handler.handlePackage(hallo, connection);
-
-        Assert.assertEquals(1, connectionAnswerCalls);
+        Assert.fail("Not implemented");  // The package handler, not only the test
+        //LockPackageHandler handler = LockPackageHandler.getInstance();
+        //
+        //handler.handlePackage(lock, connection);
+        //
+        //Assert.assertEquals(1, connectionCalls);
     }
 
     @Test
     public void test_getInstance_correctUsage() {
-        HalloPackageHandler handler = HalloPackageHandler.getInstance();
-
+        LockPackageHandler handler = LockPackageHandler.getInstance();
         Assert.assertNotNull(handler);
-        Assert.assertTrue(handler instanceof HalloPackageHandler);
+        Assert.assertTrue(handler instanceof LockPackageHandler);
     }
 
     //
@@ -98,29 +95,29 @@ public class Test_HalloPackageHandler {
 
     @Test
     public void test_getInstance_setNull() {
-        HalloPackageHandler.setInstance(null);
+        LockPackageHandler.setInstance(null);
 
-        HalloPackageHandler handler = HalloPackageHandler.getInstance();
+        LockPackageHandler handler = LockPackageHandler.getInstance();
 
         Assert.assertNotNull(handler);
-        Assert.assertTrue(handler instanceof HalloPackageHandler);
+        Assert.assertTrue(handler instanceof LockPackageHandler);
     }
 
     @Test
     public void test_getInstance_useSetter() {
-        HalloPackageHandler myHandler = mock(HalloPackageHandler.class);
-        HalloPackageHandler.setInstance(myHandler);
+        LockPackageHandler myHandler = mock(LockPackageHandler.class);
+        LockPackageHandler.setInstance(myHandler);
 
-        HalloPackageHandler handler = HalloPackageHandler.getInstance();
+        LockPackageHandler handler = LockPackageHandler.getInstance();
 
         Assert.assertNotNull(handler);
         Assert.assertEquals(myHandler, handler);
-        Assert.assertTrue(handler instanceof HalloPackageHandler);
+        Assert.assertTrue(handler instanceof LockPackageHandler);
     }
 
     @Test
     public void test_handlePackage_wrongPackage() {
-        HalloPackageHandler handler = HalloPackageHandler.getInstance();
+        LockPackageHandler handler = LockPackageHandler.getInstance();
 
         for(RTNPackage pkg: pkgs) {
             handler.handlePackage(pkg, failConnection);
@@ -131,7 +128,7 @@ public class Test_HalloPackageHandler {
     // get along with invalid packages
     @Test
     public void test_handlePackage_nullPackage() {
-        HalloPackageHandler handler = HalloPackageHandler.getInstance();
+        LockPackageHandler handler = LockPackageHandler.getInstance();
 
         handler.handlePackage(null, connection);
     }
@@ -139,8 +136,8 @@ public class Test_HalloPackageHandler {
     // if connection == null, a we cannot proceed
     @Test(expected = NullPointerException.class)
     public void test_handlePackage_nullConnection() {
-        HalloPackageHandler handler = HalloPackageHandler.getInstance();
+        LockPackageHandler handler = LockPackageHandler.getInstance();
 
-        handler.handlePackage(hallo, null);
+        handler.handlePackage(lock, null);
     }
 }

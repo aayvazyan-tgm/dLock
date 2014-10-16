@@ -1,13 +1,13 @@
-package tgm.hit.rtn.dlock.TransportLayer.TCPLockServer;
+package tgm.hit.rtn.dlock.transport.tcp;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import tgm.hit.rtn.dlock.Peer;
 import tgm.hit.rtn.dlock.PeerManager;
-import tgm.hit.rtn.dlock.packageHandlers.*;
-import tgm.hit.rtn.dlock.TransportLayer.RTNConnection;
+import tgm.hit.rtn.dlock.handlers.*;
 import tgm.hit.rtn.dlock.protocol.RTNPackage;
 import tgm.hit.rtn.dlock.protocol.responses.Response;
+import tgm.hit.rtn.dlock.transport.RTNConnection;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -17,10 +17,8 @@ import java.util.LinkedList;
 /**
  * @author Ari Michael Ayvazyan
  * @version 9.11.2012
- * @deprecated tcp is not implemented yet
  */
-@Deprecated
-public class ThreadedConnection extends Thread implements RTNConnection{
+public class ThreadedConnection extends Thread implements RTNConnection {
     private static final Logger logger = LoggerFactory.getLogger(ThreadedConnection.class);
 
     private ObjectInputStream in;
