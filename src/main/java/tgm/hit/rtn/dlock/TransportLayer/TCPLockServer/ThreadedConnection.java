@@ -34,11 +34,11 @@ public class ThreadedConnection extends Thread implements RTNConnection{
     }
 
     private void initializeRequestHandlers() {
-        addRequestHandler(ByeRequestHandler.INSTANCE);
-        addRequestHandler(GetPeerListRequestHandler.INSTANCE);
-        addRequestHandler(HalloRequestHandler.INSTANCE);
-        addRequestHandler(LockRequestHandler.INSTANCE);
-        addRequestHandler(UnlockRequestHandler.INSTANCE);
+        addRequestHandler(ByeRequestHandler.getInstance());
+        addRequestHandler(GetPeerListRequestHandler.getInstance());
+        addRequestHandler(HalloRequestHandler.getInstance());
+        addRequestHandler(LockRequestHandler.getInstance());
+        addRequestHandler(UnlockRequestHandler.getInstance());
     }
 
     public void run() {
