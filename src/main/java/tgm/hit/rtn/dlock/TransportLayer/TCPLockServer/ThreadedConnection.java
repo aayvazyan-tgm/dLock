@@ -1,5 +1,7 @@
 package tgm.hit.rtn.dlock.TransportLayer.TCPLockServer;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import tgm.hit.rtn.dlock.Peer;
 import tgm.hit.rtn.dlock.PeerManager;
 import tgm.hit.rtn.dlock.RequestHandlers.*;
@@ -10,7 +12,6 @@ import tgm.hit.rtn.dlock.protocol.responses.Response;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.Socket;
-import java.util.Date;
 import java.util.LinkedList;
 
 /**
@@ -19,6 +20,7 @@ import java.util.LinkedList;
  */
 //TODO This class needs a cleanup
 public class ThreadedConnection extends Thread implements RTNConnection{
+    private static final Logger logger = LoggerFactory.getLogger(ThreadedConnection.class);
 
     private ObjectInputStream in;
     private Socket connection;
@@ -66,7 +68,7 @@ public class ThreadedConnection extends Thread implements RTNConnection{
 
     //displays messages
     private void showMessage(final String message) {
-        System.out.println(serverName + " - " + new Date(System.currentTimeMillis()).toString() + " : " + message);
+        logger.debug(message);
     }
 
     //Sets up the connections

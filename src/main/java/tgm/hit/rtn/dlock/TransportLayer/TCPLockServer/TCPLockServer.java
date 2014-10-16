@@ -1,5 +1,7 @@
 package tgm.hit.rtn.dlock.TransportLayer.TCPLockServer;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import tgm.hit.rtn.dlock.DLock;
 import tgm.hit.rtn.dlock.GotLock;
 import tgm.hit.rtn.dlock.PeerManager;
@@ -9,7 +11,6 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
-import java.util.Date;
 import java.util.LinkedList;
 
 /**
@@ -19,6 +20,7 @@ import java.util.LinkedList;
  */
 //TODO this class needs a cleanup
 public class TCPLockServer implements StoppableRunnable {
+    private static final Logger logger = LoggerFactory.getLogger(TCPLockServer.class);
 
 	private DLock dLock;
 	private GotLock gotLock;
@@ -41,10 +43,12 @@ public class TCPLockServer implements StoppableRunnable {
         establishConnection(sc);
         showMessage("Now connected to " + sc.getInetAddress().getHostName());
     }
+
     //displays messages
     private void showMessage(final String message) {
-        System.out.println("Debug:" + " - " + new Date(System.currentTimeMillis()).toString() + " : " + message);
+        logger.debug(message);
     }
+
     public void establishConnection(Socket sc){
         try{
             ThreadedConnection t=new ThreadedConnection(sc);
