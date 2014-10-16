@@ -15,7 +15,7 @@ import java.util.LinkedList;
  * @author Jakob Klepp
  * @version 9.11.2012
  */
-//TODO this class needs a cleanup
+//TODO This class needs a cleanup and is currently handling TCP requests!
 public class UDPDLockServer implements StoppableRunnable {
 
 	private DLock dLock;
