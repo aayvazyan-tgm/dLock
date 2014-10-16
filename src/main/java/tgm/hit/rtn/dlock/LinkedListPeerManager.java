@@ -41,8 +41,8 @@ public class LinkedListPeerManager implements PeerManager{
      */
     @Override
     public boolean removePeer(Peer peer) {
-        for (Peer storedPeer:peers) {
-            if(peer.equals(storedPeer))this.peers.remove(storedPeer);
+        for (Peer storedPeer : peers) {
+            if (peer.equals(storedPeer)) this.peers.remove(storedPeer);
         }
         return this.peers.remove(peer);
     }

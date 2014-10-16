@@ -17,17 +17,18 @@ import java.util.LinkedList;
  * @author Ari Michael Ayvazyan
  * @author Jakob Klepp
  * @version 9.11.2012
+ * @deprecated tcp is not implemented yet
  */
-//TODO this class needs a cleanup
+@Deprecated
 public class TCPLockServer implements StoppableRunnable {
     private static final Logger logger = LoggerFactory.getLogger(TCPLockServer.class);
 
-	private DLock dLock;
-	private GotLock gotLock;
-	private PeerManager peerManager;
+    private DLock dLock;
+    private GotLock gotLock;
+    private PeerManager peerManager;
     private final ServerSocket serverSocket;
     private LinkedList<Thread> servers;
-    private boolean continueWork=true;
+    private boolean continueWork = true;
 
     public TCPLockServer(GotLock gotLock, PeerManager manager, ServerSocket serverSocket) {
         this.servers = new LinkedList<Thread>();
@@ -36,8 +37,7 @@ public class TCPLockServer implements StoppableRunnable {
         this.serverSocket = serverSocket;
     }
 
-    private void waitForConnection() throws IOException
-    {
+    private void waitForConnection() throws IOException {
         showMessage("Waiting for connection...");
         Socket sc = serverSocket.accept();
         establishConnection(sc);
@@ -49,22 +49,22 @@ public class TCPLockServer implements StoppableRunnable {
         logger.debug(message);
     }
 
-    public void establishConnection(Socket sc){
-        try{
-            ThreadedConnection t=new ThreadedConnection(sc);
+    public void establishConnection(Socket sc) {
+        try {
+            ThreadedConnection t = new ThreadedConnection(sc);
             servers.addLast(t);
             servers.getLast().start();
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
 
-	/**
-	 * @see Runnable#run()
-	 */
-	public void run() {
-        while(continueWork){
+    /**
+     * @see Runnable#run()
+     */
+    public void run() {
+        while (continueWork) {
             try {
                 waitForConnection();
             } catch (SocketException e) {
@@ -73,11 +73,11 @@ public class TCPLockServer implements StoppableRunnable {
                 e.printStackTrace();
             }
         }
-	}
+    }
 
     @Override
     public void stop() {
-        this.continueWork=false;
+        this.continueWork = false;
         try {
             this.serverSocket.close();
         } catch (IOException e) {

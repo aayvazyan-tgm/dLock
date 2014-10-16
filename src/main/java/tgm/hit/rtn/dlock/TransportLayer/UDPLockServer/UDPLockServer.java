@@ -10,49 +10,52 @@ import tgm.hit.rtn.dlock.protocol.responses.Response;
 import java.util.LinkedList;
 
 //TODO no Server functionality is implemented yet
-public class UDPLockClient implements RTNConnection{
+public class UDPLockServer implements RTNConnection {
 
     private PeerManager peerManager;
     private LinkedList<PackageListener> packageListener;
 
 
-    public UDPLockClient()//allows multiple connections
+    public UDPLockServer()//allows multiple connections
     {
         initializeRequestHandlers();
     }
 
     private void initializeRequestHandlers() {
-        addRequestHandler(ByePackageHandler.getInstance());
-        addRequestHandler(GetPeerListPackageHandler.getInstance());
-        addRequestHandler(HalloPackageHandler.getInstance());
-        addRequestHandler(LockPackageHandler.getInstance());
-        addRequestHandler(UnlockPackageHandler.getInstance());
+        addPackageHandler(ByePackageHandler.getInstance());
+        addPackageHandler(GetPeerListPackageHandler.getInstance());
+        addPackageHandler(HalloPackageHandler.getInstance());
+        addPackageHandler(LockPackageHandler.getInstance());
+        addPackageHandler(UnlockPackageHandler.getInstance());
     }
 
-    public Peer getPartner(){
+    public Peer getPartner() {
         //TODO IMPLEMENT
         return null;
     }
 
     /**
      * Adds a RequestListener to listen for Requests.
-     * @param rq New request listener.
+     *
+     * @param pl New package listener.
      */
-    public void addRequestHandler(PackageListener rq){
+    public void addPackageHandler(PackageListener pl) {
         if(packageListener == null) packageListener = new LinkedList<PackageListener>();
-        packageListener.add(rq);
+        packageListener.add(pl);
     }
+
     /**
      * Handles the requests
-     * @param req Request to be handled.
+     *
+     * @param pkg Package to be handled.
      */
-    private void handlePackage(RTNPackage req) {
+    private void handlePackage(RTNPackage pkg) {
         for(PackageListener handler:this.packageListener){
-            handler.handlePackage(req, this);
+            handler.handlePackage(pkg, this);
         }
     }
 
-    public void answer(Response response){
+    public void answer(Response response) {
         //TODO send the response
     }
 

@@ -5,6 +5,8 @@ package tgm.hit.rtn.dlock.TransportLayer.util;
  * @version 12.10.2014
  */
 public interface StoppableRunnable extends Runnable {
-    /** stops the current work */
+    /**
+     * stops the current work
+     */
     void stop();
 }

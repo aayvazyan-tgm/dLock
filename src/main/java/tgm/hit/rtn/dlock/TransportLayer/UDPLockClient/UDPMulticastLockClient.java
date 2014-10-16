@@ -10,46 +10,46 @@ import tgm.hit.rtn.dlock.TransportLayer.DLockClient;
  */
 public class UDPMulticastLockClient implements DLockClient {
 
-	private PeerManager peerManager;
+    private PeerManager peerManager;
 
 
-	/**
-	 * @see DLockClient#hallo()
-	 */
-	public void hallo() {
+    /**
+     * @see DLockClient#hallo()
+     */
+    public void hallo() {
 
-	}
-
-
-	/**
-	 * @see DLockClient#bye()
-	 */
-	public void bye() {
-
-	}
+    }
 
 
-	/**
-	 * @see DLockClient#lock()
-	 */
-	public void lock() {
+    /**
+     * @see DLockClient#bye()
+     */
+    public void bye() {
 
-	}
-
-
-	/**
-	 * @see DLockClient#unlock()
-	 */
-	public void unlock() {
-
-	}
+    }
 
 
-	/**
-	 * @see DLockClient#getPeerList()
-	 */
-	public void getPeerList() {
+    /**
+     * @see DLockClient#lock()
+     */
+    public void lock() {
 
-	}
+    }
+
+
+    /**
+     * @see DLockClient#unlock()
+     */
+    public void unlock() {
+
+    }
+
+
+    /**
+     * @see DLockClient#getPeerList()
+     */
+    public void getPeerList() {
+
+    }
 
 }

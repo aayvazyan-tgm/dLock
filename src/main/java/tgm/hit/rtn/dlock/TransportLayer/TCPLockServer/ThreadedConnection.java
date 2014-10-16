@@ -17,8 +17,9 @@ import java.util.LinkedList;
 /**
  * @author Ari Michael Ayvazyan
  * @version 9.11.2012
+ * @deprecated tcp is not implemented yet
  */
-//TODO This class needs a cleanup
+@Deprecated
 public class ThreadedConnection extends Thread implements RTNConnection{
     private static final Logger logger = LoggerFactory.getLogger(ThreadedConnection.class);
 
@@ -97,32 +98,37 @@ public class ThreadedConnection extends Thread implements RTNConnection{
         } while (true);
     }
 
-    public Peer getPartner(){
-        Peer partner = new Peer(connection.getPort(),connection.getInetAddress().toString());
+
+    public Peer getPartner() {
+        Peer partner = new Peer(connection.getPort(), connection.getInetAddress().toString());
         return partner;
     }
 
     /**
      * Adds a RequestListener to listen for Requests.
+     *
      * @param rq New request listener.
      */
-    public void addRequestHandler(PackageListener rq){
+    public void addRequestHandler(PackageListener rq) {
         if(packageListener == null) packageListener = new LinkedList<PackageListener>();
         packageListener.add(rq);
     }
+
     /**
      * Handles the requests
+     *
      * @param req Request to be handled.
      */
     private void packageRequest(RTNPackage req) {
         for(PackageListener handler: this.packageListener){
-            //handler.packageRequest(req, this);
+            handler.handlePackage(req, this);
         }
     }
 
-    public void answer(Response response){
+    public void answer(Response response) {
         //TODO send the response
     }
+
     private void close() {
         showMessage("Closing Connection...");
         try {
