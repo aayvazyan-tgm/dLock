@@ -1,4 +1,4 @@
-package tgm.hit.rtn.dlock;
+package tgm.hit.rtn.dlock.util;
 
 /**
  * The Callback interface is designed to allow for a common, reusable interface

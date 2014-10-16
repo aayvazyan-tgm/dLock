@@ -1,6 +1,6 @@
 package tgm.hit.rtn.dlock.TransportLayer.TCPLockClient;
 
-import tgm.hit.rtn.dlock.Peer;
+import tgm.hit.rtn.dlock.PeerManagers.Peer;
 import tgm.hit.rtn.dlock.TransportLayer.DLockClient;
 
 import java.util.HashMap;

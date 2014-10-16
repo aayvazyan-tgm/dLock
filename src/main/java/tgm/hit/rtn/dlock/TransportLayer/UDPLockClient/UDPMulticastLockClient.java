@@ -2,7 +2,7 @@ package tgm.hit.rtn.dlock.TransportLayer.UDPLockClient;
 
 //TODO some work needs to be done here
 
-import tgm.hit.rtn.dlock.PeerManager;
+import tgm.hit.rtn.dlock.PeerManagers.PeerManager;
 import tgm.hit.rtn.dlock.TransportLayer.DLockClient;
 
 /**

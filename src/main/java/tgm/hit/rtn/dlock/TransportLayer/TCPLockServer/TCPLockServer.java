@@ -2,7 +2,7 @@ package tgm.hit.rtn.dlock.TransportLayer.TCPLockServer;
 
 import tgm.hit.rtn.dlock.DLock;
 import tgm.hit.rtn.dlock.GotLock;
-import tgm.hit.rtn.dlock.PeerManager;
+import tgm.hit.rtn.dlock.PeerManagers.PeerManager;
 import tgm.hit.rtn.dlock.TransportLayer.util.StoppableRunnable;
 
 import java.io.IOException;

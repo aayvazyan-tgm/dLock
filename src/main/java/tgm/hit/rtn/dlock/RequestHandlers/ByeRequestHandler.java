@@ -1,7 +1,6 @@
 package tgm.hit.rtn.dlock.RequestHandlers;
 
 import tgm.hit.rtn.dlock.TransportLayer.RTNConnection;
-import tgm.hit.rtn.dlock.TransportLayer.UDPLockServer.ThreadedConnection;
 import tgm.hit.rtn.dlock.protocol.requests.Bye;
 import tgm.hit.rtn.dlock.protocol.requests.Request;
 

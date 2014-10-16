@@ -1,7 +1,7 @@
 package tgm.hit.rtn.dlock.TransportLayer.TCPLockServer;
 
-import tgm.hit.rtn.dlock.Peer;
-import tgm.hit.rtn.dlock.PeerManager;
+import tgm.hit.rtn.dlock.PeerManagers.Peer;
+import tgm.hit.rtn.dlock.PeerManagers.PeerManager;
 import tgm.hit.rtn.dlock.RequestHandlers.*;
 import tgm.hit.rtn.dlock.TransportLayer.RTNConnection;
 import tgm.hit.rtn.dlock.protocol.requests.Request;
