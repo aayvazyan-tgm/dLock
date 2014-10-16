@@ -19,20 +19,22 @@ import static org.mockito.Mockito.mock;
  */
 public class Test_HalloPackageHandler {
     public PeerManager manager;
-    public int connectionCalls;
+    public int connectionGetPeerManagerCalls;
+    public int connectionAnswerCalls;
     public RTNConnection connection;
     public RTNPackage[] pkgs;
     public RTNConnection failConnection;
-    public Bye bye;
+    public Hallo hallo;
 
     @Before
     public void prepare() {
         manager = mock(PeerManager.class);
-        connectionCalls = 0;
+        connectionGetPeerManagerCalls = 0;
+        connectionAnswerCalls = 0;
         connection = connection = new RTNConnection() {
             @Override
             public PeerManager getPeerManager() {
-                connectionCalls++;
+                connectionGetPeerManagerCalls++;
                 return new PeerManager() {
                     @Override public void addPeer(Peer peer) { }
                     @Override public Peer[] getPeers() { return new Peer[0]; }
@@ -41,7 +43,9 @@ public class Test_HalloPackageHandler {
                 };
             }
             @Override public Peer getPartner() { return null; }
-            @Override public void answer(Response response) {}
+            @Override public void answer(Response response) {
+                connectionAnswerCalls ++;
+            }
         };
         pkgs = new RTNPackage[] {
                 mock(RTNPackage.class),
@@ -65,7 +69,7 @@ public class Test_HalloPackageHandler {
             @Override public Peer getPartner() { return null; }
             @Override public void answer(Response response) {}
         };
-        bye = new Bye();
+        hallo = new Hallo();
     }
 
     //
@@ -74,13 +78,10 @@ public class Test_HalloPackageHandler {
 
     @Test
     public void test_handlePackage_correctUsage() {
-        Assert.fail("Not implemented");
-        // TODO implement the test case in a correct way
-        // it has to be different from the ByePackageHandler on
         HalloPackageHandler handler = HalloPackageHandler.getInstance();
-        handler.handlePackage(bye, connection);
+        handler.handlePackage(hallo, connection);
 
-        Assert.assertEquals(1, connectionCalls);
+        Assert.assertEquals(1, connectionAnswerCalls);
     }
 
     @Test
@@ -140,6 +141,6 @@ public class Test_HalloPackageHandler {
     public void test_handlePackage_nullConnection() {
         HalloPackageHandler handler = HalloPackageHandler.getInstance();
 
-        handler.handlePackage(bye, null);
+        handler.handlePackage(hallo, null);
     }
 }

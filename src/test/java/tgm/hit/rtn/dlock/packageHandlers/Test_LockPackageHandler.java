@@ -23,7 +23,7 @@ public class Test_LockPackageHandler {
     public RTNConnection connection;
     public RTNPackage[] pkgs;
     public RTNConnection failConnection;
-    public Bye bye;
+    public Lock lock;
 
     @Before
     public void prepare() {
@@ -65,7 +65,7 @@ public class Test_LockPackageHandler {
             @Override public Peer getPartner() { return null; }
             @Override public void answer(Response response) {}
         };
-        bye = new Bye();
+        lock = new Lock("");
     }
 
     //
@@ -74,18 +74,16 @@ public class Test_LockPackageHandler {
 
     @Test
     public void test_handlePackage_correctUsage() {
-        LockPackageHandler handler = LockPackageHandler.getInstance();
-
-        handler.handlePackage(bye, connection);
-
-        Assert.assertEquals(1, connectionCalls);
+        Assert.fail("Not implemented");  // The package handler, not only the test
+        //LockPackageHandler handler = LockPackageHandler.getInstance();
+        //
+        //handler.handlePackage(lock, connection);
+        //
+        //Assert.assertEquals(1, connectionCalls);
     }
 
     @Test
     public void test_getInstance_correctUsage() {
-        Assert.fail("Not implemented");
-        // TODO implement the test case in a correct way
-        // it has to be different from the ByePackageHandler on
         LockPackageHandler handler = LockPackageHandler.getInstance();
         Assert.assertNotNull(handler);
         Assert.assertTrue(handler instanceof LockPackageHandler);
@@ -140,6 +138,6 @@ public class Test_LockPackageHandler {
     public void test_handlePackage_nullConnection() {
         LockPackageHandler handler = LockPackageHandler.getInstance();
 
-        handler.handlePackage(bye, null);
+        handler.handlePackage(lock, null);
     }
 }

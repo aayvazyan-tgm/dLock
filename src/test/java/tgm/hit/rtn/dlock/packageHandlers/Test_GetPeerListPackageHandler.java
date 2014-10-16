@@ -19,20 +19,20 @@ import static org.mockito.Mockito.mock;
  */
 public class Test_GetPeerListPackageHandler {
     public PeerManager manager;
-    public int connectionCalls;
+    public int connectionGetPeerManagerCalls;
     public RTNConnection connection;
     public RTNPackage[] pkgs;
     public RTNConnection failConnection;
-    public Bye bye;
+    public GetPeerList getPeerList;
 
     @Before
     public void prepare() {
         manager = mock(PeerManager.class);
-        connectionCalls = 0;
+        connectionGetPeerManagerCalls = 0;
         connection = connection = new RTNConnection() {
             @Override
             public PeerManager getPeerManager() {
-                connectionCalls++;
+                connectionGetPeerManagerCalls++;
                 return new PeerManager() {
                     @Override public void addPeer(Peer peer) { }
                     @Override public Peer[] getPeers() { return new Peer[0]; }
@@ -65,7 +65,7 @@ public class Test_GetPeerListPackageHandler {
             @Override public Peer getPartner() { return null; }
             @Override public void answer(Response response) {}
         };
-        bye = new Bye();
+        getPeerList = new GetPeerList();
     }
 
     //
@@ -74,12 +74,11 @@ public class Test_GetPeerListPackageHandler {
 
     @Test
     public void test_handlePackage_correctUsage() {
-        Assert.fail("Not implemented");
         // TODO implement the test case in a correct way
         // it has to be different from the ByePackageHandler on
         GetPeerListPackageHandler handler = GetPeerListPackageHandler.getInstance();
-        handler.handlePackage(bye, connection);
-        Assert.assertEquals(1, connectionCalls);
+        handler.handlePackage(getPeerList, connection);
+        Assert.assertEquals(1, connectionGetPeerManagerCalls);
     }
 
     @Test
@@ -139,6 +138,6 @@ public class Test_GetPeerListPackageHandler {
     public void test_handlePackage_nullConnection() {
         GetPeerListPackageHandler handler = GetPeerListPackageHandler.getInstance();
 
-        handler.handlePackage(bye, null);
+        handler.handlePackage(getPeerList, null);
     }
 }
