@@ -1,13 +1,13 @@
 package tgm.hit.rtn.dlock.protocol.responses;
 
-import tgm.hit.rtn.dlock.protocol.*;
+import tgm.hit.rtn.dlock.protocol.RTNPackage;
+import tgm.hit.rtn.dlock.protocol.PackageType;
 
-public abstract class Response implements tgm.hit.rtn.dlock.protocol.Package {
-
-    private PackageType type = PackageType.RESPONSE;
-
-    public PackageType getPackageType() {
-        return type;
+public abstract class Response extends RTNPackage {
+    /**
+     * Sets RTNPackage#type to PackageType.RESPONSE
+     */
+    public Response() {
+        this.type = PackageType.RESPONSE;
     }
-
 }

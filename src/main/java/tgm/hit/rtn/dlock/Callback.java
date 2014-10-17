@@ -1,9 +1,9 @@
-package tgm.hit.rtn.dlock.util;
+package tgm.hit.rtn.dlock;
 
 /**
  * The Callback interface is designed to allow for a common, reusable interface
  * to exist for defining APIs that requires a call back in certain situations.
- * 
+ *
  * Callback is defined with two generic parameters: the first parameter
  * specifies the type of the object passed in to the <code>call</code> method,
  * with the second parameter specifying the return type of the method.

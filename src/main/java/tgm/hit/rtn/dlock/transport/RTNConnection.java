@@ -1,7 +1,7 @@
-package tgm.hit.rtn.dlock.TransportLayer;
+package tgm.hit.rtn.dlock.transport;
 
-import tgm.hit.rtn.dlock.PeerManagers.Peer;
-import tgm.hit.rtn.dlock.PeerManagers.PeerManager;
+import tgm.hit.rtn.dlock.Peer;
+import tgm.hit.rtn.dlock.PeerManager;
 import tgm.hit.rtn.dlock.protocol.responses.Response;
 
 /**

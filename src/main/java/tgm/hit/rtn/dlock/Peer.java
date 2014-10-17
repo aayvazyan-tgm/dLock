@@ -1,4 +1,4 @@
-package tgm.hit.rtn.dlock.PeerManagers;
+package tgm.hit.rtn.dlock;
 
 import java.io.Serializable;
 import java.util.Objects;

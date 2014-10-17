@@ -1,6 +1,6 @@
-package tgm.hit.rtn.dlock.PeerManagers;
+package tgm.hit.rtn.dlock;
 
-import tgm.hit.rtn.dlock.TransportLayer.DLockClient;
+import tgm.hit.rtn.dlock.transport.DLockClient;
 
 public interface PeerManager {
     /**

@@ -3,7 +3,7 @@ package tgm.hit.rtn.dlock;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import tgm.hit.rtn.dlock.TransportLayer.DLockClient;
+import tgm.hit.rtn.dlock.transport.DLockClient;
 
 import static org.mockito.Mockito.mock;
 
@@ -30,7 +30,7 @@ public class Test_DLockClient_lockWhile {
         expectedResult = 4;
     }
 
-    @Test
+    @Test(timeout = 1000)  // rather have the test fail then have it run forever
     public void testObjectsPassed() throws InterruptedException {
         int myResult= (Integer) lock.lockWhile(new Sum(), (Object[])sumThis);
         Assert.assertEquals(myResult,expectedResult);

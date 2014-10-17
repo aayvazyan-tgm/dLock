@@ -1,18 +1,13 @@
-package tgm.hit.rtn.dlock.TransportLayer.TCPLockClient;
+package tgm.hit.rtn.dlock.transport.tcp;
 
-import tgm.hit.rtn.dlock.PeerManagers.Peer;
-import tgm.hit.rtn.dlock.TransportLayer.DLockClient;
-
-import java.util.HashMap;
+import tgm.hit.rtn.dlock.transport.DLockClient;
 
 /**
  * @author Ari Michael Ayvazyan
  * @version 16.10.2014
- * @deprecated tcp is not implemented yet
  */
-@Deprecated
 public class TCPDLockClient implements DLockClient {
-    HashMap<Peer , TCPDLockClientHandler> myConnectionManager;
+    //HashMap<Peer , TCPDLockClientHandler> myConnectionManager;
     public TCPDLockClient(){
 
     }

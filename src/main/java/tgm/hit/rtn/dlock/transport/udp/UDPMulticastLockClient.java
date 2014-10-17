@@ -1,9 +1,9 @@
-package tgm.hit.rtn.dlock.TransportLayer.UDPLockClient;
+package tgm.hit.rtn.dlock.transport.udp;
 
 //TODO some work needs to be done here
 
-import tgm.hit.rtn.dlock.PeerManagers.PeerManager;
-import tgm.hit.rtn.dlock.TransportLayer.DLockClient;
+import tgm.hit.rtn.dlock.PeerManager;
+import tgm.hit.rtn.dlock.transport.DLockClient;
 
 /**
  * This client communicates with other Peers in the network

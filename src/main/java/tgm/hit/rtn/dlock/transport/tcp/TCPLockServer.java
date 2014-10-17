@@ -1,25 +1,25 @@
-package tgm.hit.rtn.dlock.TransportLayer.TCPLockServer;
+package tgm.hit.rtn.dlock.transport.tcp;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import tgm.hit.rtn.dlock.DLock;
 import tgm.hit.rtn.dlock.GotLock;
-import tgm.hit.rtn.dlock.PeerManagers.PeerManager;
-import tgm.hit.rtn.dlock.TransportLayer.util.StoppableRunnable;
+import tgm.hit.rtn.dlock.PeerManager;
+import tgm.hit.rtn.dlock.transport.StoppableRunnable;
 
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
-import java.util.Date;
 import java.util.LinkedList;
 
 /**
  * @author Ari Michael Ayvazyan
  * @author Jakob Klepp
  * @version 9.11.2012
- * @deprecated tcp is not implemented yet
  */
-@Deprecated
 public class TCPLockServer implements StoppableRunnable {
+    private static final Logger logger = LoggerFactory.getLogger(TCPLockServer.class);
 
     private DLock dLock;
     private GotLock gotLock;
@@ -29,9 +29,9 @@ public class TCPLockServer implements StoppableRunnable {
     private boolean continueWork = true;
 
     public TCPLockServer(GotLock gotLock, PeerManager manager, ServerSocket serverSocket) {
-        servers = new LinkedList<Thread>();
+        this.servers = new LinkedList<Thread>();
         this.gotLock = gotLock;
-        peerManager = manager;
+        this.peerManager = manager;
         this.serverSocket = serverSocket;
     }
 
@@ -44,7 +44,7 @@ public class TCPLockServer implements StoppableRunnable {
 
     //displays messages
     private void showMessage(final String message) {
-        System.out.println("Debug:" + " - " + new Date(System.currentTimeMillis()).toString() + " : " + message);
+        logger.debug(message);
     }
 
     public void establishConnection(Socket sc) {

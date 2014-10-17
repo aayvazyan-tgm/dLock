@@ -1,4 +1,4 @@
-package tgm.hit.rtn.dlock.TransportLayer.util;
+package tgm.hit.rtn.dlock.transport;
 
 /**
  * @author Ari Michael Ayvazyan
